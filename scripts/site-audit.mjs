@@ -9,7 +9,8 @@ const banned = [
   "Monthly cadence through 2026",
   "answers press requests himself",
   "DELETE THIS BLOCK BEFORE PUBLISHING",
-  "more than eighty published pieces"
+  "more than eighty published pieces",
+  "Societies hold together when they recognize the dignity"
 ];
 
 function count(s, needle) {
@@ -64,9 +65,15 @@ for (const f of html) {
 const headers = fs.readFileSync("_headers", "utf8");
 if (headers.includes("max-age=31536000, immutable")) failures.push("_headers: unversioned assets cached immutable");
 if (!headers.includes("Content-Security-Policy:")) failures.push("_headers: missing CSP");
-for (const f of ["llms.txt", "about.html", "framework.html", "explore.html", "thanks.html", "data/core-works.json"]) {
+for (const f of ["llms.txt", "about.html", "framework.html", "explore.html", "thanks.html", "data/core-works.json", "assets/civilizational-motif.svg", "assets/visual-polish.css"]) {
   if (!fs.existsSync(f)) failures.push(`missing ${f}`);
 }
+
+const home = fs.readFileSync("index.html", "utf8");
+const approved = "Civilizations are born and progress when they recognize and practice human dignity, and they decline and fall when they stop.";
+if (!home.includes(approved)) failures.push("index.html: missing Professor al-Ahsan’s approved dignity formulation");
+const loader = fs.readFileSync("assets/site.js", "utf8");
+if (!loader.includes("/assets/visual-polish.css")) failures.push("assets/site.js: visual polish layer is not loaded");
 
 const redirects = fs.readFileSync("_redirects", "utf8");
 if (!redirects.includes("/explore")) failures.push("_redirects: missing /explore route");
@@ -98,4 +105,4 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log(`Site audit passed: ${html.length} HTML pages checked; structured scholarly record validated.`);
+console.log(`Site audit passed: ${html.length} HTML pages checked; scholarly record and visual layer validated.`);
