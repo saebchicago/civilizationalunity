@@ -1,4 +1,7 @@
-/writing    /writing.html    200
-/speaking   /speaking.html   200
-/press      /press.html      200
-/cv         /writing.html    301
+/framework   /framework.html   200
+/writing     /writing.html     200
+/speaking    /speaking.html    200
+/press       /press.html       200
+/about       /about.html       200
+/thanks      /thanks.html      200
+/cv          /writing          301

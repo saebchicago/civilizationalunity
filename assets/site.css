@@ -449,3 +449,21 @@ a.row:hover{background:var(--lapis-soft);padding-left:.7rem}
 @media(max-width:760px){.framework-grid{grid-template-columns:1fr 1fr}.hdr__id::after{display:none}}
 @media(max-width:480px){.framework-grid{grid-template-columns:1fr}}
 @media print{.hdr,.foot,.btnrow,.no-print{display:none!important}.band,.hero{padding:1rem 0!important}.framework-quote{font-size:28pt}.framework-grid{grid-template-columns:repeat(4,1fr)}body{background:white!important;color:black!important}}
+
+
+/* E2E expert-audit layer: trust, teaching, AEO and accessibility */
+.answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.75rem}
+.answer-card{border:1px solid var(--rule);background:var(--raise);padding:1.4rem;display:flex;flex-direction:column;min-height:13rem}
+.answer-card h3{margin-bottom:.7rem}.answer-card p{font-size:.98rem;line-height:1.55;color:var(--slate)}
+.answer-card a{margin-top:auto;font-family:var(--mono);font-size:.76rem;color:var(--lapis);text-underline-offset:3px}
+.access-note,.notice{max-width:52rem;margin:1rem 0 1.5rem;padding:1rem 1.1rem;background:var(--lapis-soft);border-left:3px solid var(--lapis);font-size:.93rem;line-height:1.6}
+.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:1.75rem}
+.method-step{background:var(--paper);padding:1.35rem;min-height:15rem;display:flex;flex-direction:column}
+.method-step>span{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--rubric);margin-bottom:.75rem}
+.method-step h3{margin-bottom:.65rem}.method-step p{font-size:.96rem;line-height:1.55}.method-step small{margin-top:auto;font-family:var(--mono);font-size:.7rem;line-height:1.55;color:var(--slate)}
+.source-ladder{display:grid;gap:.75rem;margin-top:1.5rem;max-width:58rem}
+.source-ladder article{border-left:3px solid var(--lapis);padding:.85rem 1rem;background:var(--raise)}
+.source-ladder strong{font-family:var(--mono);font-size:.76rem;letter-spacing:.05em}.source-ladder p{font-size:.96rem;margin-top:.35rem}
+.provenance--wide{max-width:58rem}.form-note{font-family:var(--mono);font-size:.7rem;line-height:1.55;color:var(--slate);margin:-.35rem 0 1rem}
+.vid--playing{cursor:default}
+@media(max-width:760px){.answer-grid,.method-grid{grid-template-columns:1fr}.answer-card,.method-step{min-height:0}}

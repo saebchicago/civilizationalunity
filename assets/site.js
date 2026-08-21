@@ -171,15 +171,18 @@
      pattern, and it means the page sets no third-party cookies on arrival. */
   Array.prototype.forEach.call(document.querySelectorAll(".vid"), function (box) {
     box.addEventListener("click", function () {
-      if (box.querySelector("iframe")) return;
       var id = box.getAttribute("data-yt");
       var extra = box.getAttribute("data-yt-params") || "";
+      var wrap = document.createElement("div");
+      wrap.className = "vid vid--playing";
       var f = document.createElement("iframe");
       f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0" + (extra ? "&" + extra : "");
       f.title = box.getAttribute("data-title") || "Video";
       f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen";
       f.setAttribute("allowfullscreen", "");
-      box.appendChild(f);
+      wrap.appendChild(f);
+      box.replaceWith(wrap);
+      f.focus();
     });
   });
 

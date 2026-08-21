@@ -1,0 +1,7 @@
+import fs from "node:fs";
+import path from "node:path";
+const html=fs.readdirSync(process.cwd()).filter(f=>f.endsWith(".html"));
+const failures=[];
+const banned=["EDIT-DOMAIN","still publishing monthly","Monthly cadence through 2026","answers press requests himself","DELETE THIS BLOCK BEFORE PUBLISHING"];
+for(const f of html){const s=fs.readFileSync(f,"utf8");for(const token of banned)if(s.includes(token))failures.push(`${f}: stale phrase ${token}`);for(const req of ["<title>","name=\"description\"","rel=\"canonical\"","<main","<h1","class=\"skip\""])if(!s.includes(req))failures.push(`${f}: missing ${req}`);const ids=[...s.matchAll(/\sid="([^"]+)"/g)].map(m=>m[1]);const dup=ids.filter((x,i)=>ids.indexOf(x)!==i);if(dup.length)failures.push(`${f}: duplicate ids ${[...new Set(dup)].join(",")}`);const o='<script type="application/ld+json">',c='</script>';let p=0;while((p=s.indexOf(o,p))>=0){const a=p+o.length,b=s.indexOf(c,a);if(b<0){failures.push(`${f}: unclosed JSON-LD`);break}try{JSON.parse(s.slice(a,b))}catch(e){failures.push(`${f}: invalid JSON-LD ${e.message}`)}p=b+c.length;}}
+const h=fs.readFileSync("_headers","utf8");if(h.includes("max-age=31536000, immutable"))failures.push("immutable unversioned asset cache");for(const f of ["llms.txt","about.html","framework.html","thanks.html"])if(!fs.existsSync(f))failures.push(`missing ${f}`);if(failures.length){console.error(failures.join("\n"));process.exit(1)}console.log(`Site audit passed: ${html.length} HTML pages checked.`);
