@@ -1,6 +1,6 @@
 # Deploying this site
 
-Four static HTML pages, one stylesheet, one script, three files in `media/`. No build step,
+Static HTML pages, one stylesheet, one script, and a small set of source/media files. No build step,
 no framework, no database. It will still work in ten years.
 
 ---
@@ -30,10 +30,10 @@ Free tier. No credit card. It handles HTTPS, the contact form, and the redirects
 no face.
 
 ### B. The domain
-`EDIT-DOMAIN` appears in the canonical tags, the `og:image` tags, `sitemap.xml`, and the
+`civilizationunity.netlify.app` appears in the canonical tags, the `og:image` tags, `sitemap.xml`, and the
 one-page PDF. Replace all of them with the real domain once you have one.
 
-Search across the folder for `EDIT-DOMAIN`. There should be zero matches when you are done.
+Search across the folder for `civilizationunity.netlify.app`. There should be zero matches when you are done.
 
 ### C. Form notifications
 The contact form works the moment the site is live, but nobody is told when it fires.
@@ -42,8 +42,7 @@ In Netlify: **Forms > invitation > Settings and usage > Form notifications > Add
 notification > Email notification.** Put his address there.
 
 His email address appears nowhere in the published HTML. That is deliberate. Scrapers
-harvest `mailto:` links; they do not fill in forms. The form is the only path in, and it
-reaches him directly.
+harvest `mailto:` links; they do not fill in forms. The form is the public contact path on the site.
 
 ### D. Delete the checklist block
 The orange block at the bottom of `index.html` is for you, not for visitors. Find the comment
@@ -55,7 +54,7 @@ that says `DELETE THIS BLOCK BEFORE PUBLISHING` and delete through the closing `
 
 These are the things that make a site last and make him findable, rather than just present.
 
-**Wayback Machine.** Go to `web.archive.org/save` and submit all four page URLs. Repeat
+**Wayback Machine.** Go to `web.archive.org/save` and submit the public page URLs. Repeat
 annually. This means the site survives its own hosting.
 
 **ORCID.** Register at orcid.org. It is free, takes twenty minutes, and it is the identifier

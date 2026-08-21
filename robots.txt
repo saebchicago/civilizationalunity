@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://EDIT-DOMAIN/sitemap.xml
+Sitemap: https://civilizationunity.netlify.app/sitemap.xml
