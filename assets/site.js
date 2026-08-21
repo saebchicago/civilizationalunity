@@ -9,6 +9,14 @@
     s.onerror = done || function () {};
     document.head.appendChild(s);
   }
+  function loadStyle(href) {
+    if (document.querySelector('link[href="' + href + '"]')) return;
+    var l = document.createElement("link");
+    l.rel = "stylesheet";
+    l.href = href;
+    document.head.appendChild(l);
+  }
+  loadStyle("/assets/visual-polish.css");
   load("/assets/site-core.js", function () {
     load("/assets/gateway.js", function () {
       load("/assets/nav.js", function () {
