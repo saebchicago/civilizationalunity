@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract civilizational unity motif</title>
+  <desc id="desc">Layered arches, geometric lattice, circles and fine connecting lines in navy, stone and muted gold.</desc>
+  <defs>
+    <pattern id="lattice" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M22 0 44 22 22 44 0 22Z" fill="none" stroke="#d7c29a" stroke-width="1" opacity=".65"/>
+      <circle cx="22" cy="22" r="4" fill="none" stroke="#d7c29a" stroke-width="1" opacity=".55"/>
+    </pattern>
+    <linearGradient id="stone" x1="0" x2="1">
+      <stop offset="0" stop-color="#eadfc8" stop-opacity=".16"/>
+      <stop offset="1" stop-color="#b58a3a" stop-opacity=".24"/>
+    </linearGradient>
+  </defs>
+  <path d="M1110 980V390c0-208 169-377 377-377h113v967Z" fill="#143f3b" opacity=".10"/>
+  <path d="M1240 980V534c0-146 119-265 265-265h95v711Z" fill="url(#stone)"/>
+  <path d="M1302 980V610c0-112 91-203 203-203s203 91 203 203v370Z" fill="url(#lattice)" opacity=".72"/>
+  <path d="M-90 980V472c0-211 171-382 382-382h178v890Z" fill="#17385f" opacity=".08"/>
+  <path d="M-30 980V618c0-145 118-263 263-263h118v625Z" fill="#17385f" opacity=".10"/>
+  <circle cx="1260" cy="632" r="184" fill="#c99c43" opacity=".10"/>
+  <circle cx="154" cy="142" r="106" fill="#17385f" opacity=".045"/>
+  <path d="M80 612C342 422 520 446 758 520s476 132 760-98" fill="none" stroke="#b58a3a" stroke-width="1.25" opacity=".56"/>
+  <path d="M100 740C426 590 660 624 870 696s388 92 644-38" fill="none" stroke="#b58a3a" stroke-width="1" opacity=".30"/>
+  <g fill="#b58a3a" opacity=".8">
+    <circle cx="282" cy="512" r="6"/><circle cx="632" cy="485" r="5"/><circle cx="970" cy="574" r="5"/><circle cx="1382" cy="478" r="6"/>
+  </g>
+  <g fill="none" stroke="#17385f" stroke-width="1" opacity=".18">
+    <circle cx="282" cy="512" r="24"/><circle cx="632" cy="485" r="24"/><circle cx="970" cy="574" r="24"/><circle cx="1382" cy="478" r="24"/>
+  </g>
+</svg>
