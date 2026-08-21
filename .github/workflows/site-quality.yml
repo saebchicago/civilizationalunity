@@ -9,11 +9,13 @@ permissions:
   contents: write
 
 jobs:
-  polish:
-    if: github.event_name == 'push' && github.actor != 'github-actions[bot]'
+  polish-pr:
+    if: github.event_name == 'pull_request' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
       - name: Apply final static editorial polish
         run: |
           python - <<'PY'
@@ -92,14 +94,18 @@ jobs:
           s=s.replace('Follow the ideas into the full writing record, biographical sources, lecture topics and editorial notes.','Follow the ideas into the full writing record, biographical sources, lectures and public work.')
           s=s.replace('<p class="foot__h">Editorial note</p>\n        <p class="foot__ids">The site distinguishes Professor al-Ahsan’s authored scholarship from editorial synthesis and links readers back to the underlying record. <a href="/about">Read the editorial standard.</a></p>', '<p class="foot__h">Authority record</p>\n        <p class="foot__ids"><a href="https://www.wikidata.org/wiki/Q24946801">Wikidata</a> · <a href="https://viaf.org/viaf/33537331">VIAF</a> · <a href="https://irep.iium.edu.my/profile/853">IIUM repository</a><br><a href="/press">Name forms, bios and source records →</a></p>')
           p.write_text(s)
+
+          Path('.polish-trigger').unlink(missing_ok=True)
           PY
-      - name: Commit transformed pages
+      - name: Run site audit before committing
+        run: node scripts/site-audit.mjs
+      - name: Commit polished pages to PR branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html writing.html speaking.html press.html
+          git add -A
           git diff --cached --quiet || git commit -m "Polish interior scholarly experience"
-          git push
+          git push origin HEAD:${{ github.head_ref }}
 
   audit:
     runs-on: ubuntu-latest
