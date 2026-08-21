@@ -30,10 +30,10 @@ Free tier. No credit card. It handles HTTPS, the contact form, and the redirects
 no face.
 
 ### B. The domain
-`EDIT-DOMAIN` appears in the canonical tags, the `og:image` tags, `sitemap.xml`, and the
+`civilizationunity.netlify.app` appears in the canonical tags, the `og:image` tags, `sitemap.xml`, and the
 one-page PDF. Replace all of them with the real domain once you have one.
 
-Search across the folder for `EDIT-DOMAIN`. There should be zero matches when you are done.
+Search across the folder for `civilizationunity.netlify.app`. There should be zero matches when you are done.
 
 ### C. Form notifications
 The contact form works the moment the site is live, but nobody is told when it fires.

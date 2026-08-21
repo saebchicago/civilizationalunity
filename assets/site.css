@@ -433,3 +433,19 @@ a.row:hover{background:var(--lapis-soft);padding-left:.7rem}
   a::after{content:" (" attr(href) ")";font-size:8pt;color:#555}
   .card,.bio{break-inside:avoid}
 }
+
+
+/* Civilizational Unity source-polish layer */
+.hdr__id{letter-spacing:.02em}
+.hdr__id::after{content:"Abdullah al-Ahsan";display:block;font-family:Spectral,Georgia,serif;font-size:.68rem;font-weight:400;letter-spacing:.08em;opacity:.72;margin-top:.08rem}
+.provenance{max-width:72ch;margin:.75rem 0 1.5rem;padding:.9rem 1rem;border-left:2px solid currentColor;opacity:.82;font-size:.95rem}
+.topic__request{margin:.35rem 0 .7rem;font-size:.92rem}
+.topic__request a{text-decoration-thickness:1px;text-underline-offset:.2em}
+.framework-quote{max-width:22ch;font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,5vw,4.25rem);line-height:1.06;letter-spacing:-.025em;margin:1.5rem 0 2rem}
+.framework-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule,#d9d5cf);border:1px solid var(--rule,#d9d5cf);margin:2rem 0}
+.framework-card{background:var(--bg,#fbfaf8);padding:1.4rem;min-height:12rem}
+.framework-card .eyebrow{margin-bottom:.6rem}
+.source-note{font-size:.9rem;opacity:.78;max-width:76ch}
+@media(max-width:760px){.framework-grid{grid-template-columns:1fr 1fr}.hdr__id::after{display:none}}
+@media(max-width:480px){.framework-grid{grid-template-columns:1fr}}
+@media print{.hdr,.foot,.btnrow,.no-print{display:none!important}.band,.hero{padding:1rem 0!important}.framework-quote{font-size:28pt}.framework-grid{grid-template-columns:repeat(4,1fr)}body{background:white!important;color:black!important}}

@@ -210,6 +210,17 @@
     applyFilter("all");
   }
 
+  /* ---------- SPEAKING TOPIC PREFILL ---------- */
+  var topicSelect = document.getElementById("f-topic");
+  if (topicSelect && window.URLSearchParams) {
+    var requestedTalk = new URLSearchParams(window.location.search).get("talk");
+    if (requestedTalk) {
+      Array.prototype.forEach.call(topicSelect.options, function (o) {
+        if (o.text === requestedTalk) topicSelect.value = o.value;
+      });
+    }
+  }
+
   /* ---------- COPY ---------- */
   Array.prototype.forEach.call(document.querySelectorAll(".copy"), function (btn) {
     btn.addEventListener("click", function () {
