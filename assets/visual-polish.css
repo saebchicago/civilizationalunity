@@ -1,0 +1,166 @@
+/* Civilizational Unity — visual polish layer
+   Quiet visual depth; no content is hidden behind decoration. */
+
+/* Homepage: parchment, architectural arcs and a restrained gold connective line. */
+.home-v2 .gateway-hero{
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 74% 14%,rgba(181,138,58,.11),transparent 28%),
+    linear-gradient(135deg,color-mix(in srgb,var(--paper) 97%,#d8c49d) 0%,var(--paper) 58%,color-mix(in srgb,var(--paper) 93%,#17385f) 100%);
+}
+.home-v2 .gateway-hero::before{
+  background:linear-gradient(90deg,transparent 68.92%,rgba(181,138,58,.32) 69%,transparent 69.08%);
+  opacity:.6;
+}
+.home-v2 .gateway-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:url('/assets/civilizational-motif.svg') center right/cover no-repeat;
+  opacity:.78;
+}
+[data-theme="dark"] .home-v2 .gateway-hero{
+  background:
+    radial-gradient(circle at 76% 10%,rgba(196,153,73,.10),transparent 25%),
+    linear-gradient(135deg,#0b1420 0%,#0b1420 54%,#0e1d2a 100%);
+}
+[data-theme="dark"] .home-v2 .gateway-hero::after{opacity:.28;filter:saturate(.7) brightness(1.35)}
+
+.home-v2 .gateway-hero__grid{min-height:min(50rem,calc(100vh - var(--hdr)));align-items:center}
+.home-v2 .gateway-hero__copy{position:relative;z-index:2}
+.home-v2 .gateway-hero__copy::before{
+  content:"";
+  display:block;
+  width:4rem;
+  height:1px;
+  background:#b58a3a;
+  margin:0 0 1.25rem;
+}
+.home-v2 .gateway-hero h1{max-width:10.5ch;text-wrap:balance}
+.home-v2 .gateway-hero__lede{max-width:36rem}
+.home-v2 .thesis-quote{
+  border-left:0;
+  padding:1.35rem 0 0;
+  position:relative;
+}
+.home-v2 .thesis-quote::before{
+  content:"“";
+  position:absolute;
+  left:-.1rem;
+  top:.25rem;
+  font-family:var(--display);
+  font-size:2.6rem;
+  line-height:1;
+  color:#b58a3a;
+}
+.home-v2 .thesis-quote p{padding-left:2.15rem}
+.home-v2 .thesis-quote strong{box-shadow:none;color:var(--lapis)}
+[data-theme="dark"] .home-v2 .thesis-quote strong{color:#b8d3f6}
+
+/* The argument becomes an illuminated architectural panel rather than a generic sidebar. */
+.home-v2 .idea-axis{
+  padding:clamp(2.1rem,4vw,3.2rem) clamp(1.5rem,3vw,2.4rem) 2.3rem;
+  border:1px solid color-mix(in srgb,#b58a3a 46%,var(--rule));
+  border-bottom-color:var(--rule);
+  border-radius:11rem 11rem .25rem .25rem;
+  background:color-mix(in srgb,var(--paper) 76%,transparent);
+  backdrop-filter:blur(8px);
+  box-shadow:0 28px 70px rgba(25,35,50,.08);
+}
+[data-theme="dark"] .home-v2 .idea-axis{background:rgba(11,20,32,.58);box-shadow:0 30px 80px rgba(0,0,0,.22)}
+.home-v2 .idea-axis__kicker{text-align:center;color:#8b6c30}
+[data-theme="dark"] .home-v2 .idea-axis__kicker{color:#d2ad67}
+.home-v2 .idea-axis ol{padding-left:1.6rem}
+.home-v2 .idea-axis ol::before{background:linear-gradient(#b58a3a,var(--lapis))}
+.home-v2 .idea-axis li::before{border-color:#b58a3a}
+.home-v2 .idea-axis li:first-child::before{background:#b58a3a;border-color:#b58a3a}
+
+/* Buttons: flatter and more publication-like. */
+.home-v2 .gateway-actions .btn{border-radius:999px;padding-inline:1.05rem}
+.home-v2 .gateway-actions .btn--go{box-shadow:0 10px 30px rgba(27,62,112,.12)}
+
+/* Proof reads as a single record line, not a dashboard. */
+.home-v2 .proof-strip{background:color-mix(in srgb,var(--raise) 72%,#e9dfca);border-top:1px solid rgba(181,138,58,.34)}
+.home-v2 .proof-strip__grid>div{padding-block:1.1rem}
+.home-v2 .proof-strip strong{font-weight:400;color:var(--ink)}
+.home-v2 .proof-strip span{letter-spacing:.06em}
+
+/* Editorial rhythm: a subtle gold measure accompanies major transitions. */
+.home-v2 .section-intro>.eyebrow::after,
+.home-v2 .section-intro--split .eyebrow::after{
+  content:"";
+  display:inline-block;
+  width:2rem;
+  height:1px;
+  margin-left:.7rem;
+  vertical-align:middle;
+  background:#b58a3a;
+  opacity:.7;
+}
+.home-v2 .inquiry{transition:background .22s ease,padding-left .22s ease}
+.home-v2 .inquiry:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--lapis-soft) 52%,transparent),transparent 74%)}
+.home-v2 .inquiry>a{border-color:#b58a3a}
+
+/* Books gain a quiet physical-library character. */
+.home-v2 .canon__book::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:2rem;
+  bottom:2rem;
+  width:2px;
+  background:linear-gradient(#b58a3a,transparent);
+  opacity:.48;
+}
+.home-v2 .canon__book{padding-left:1rem}
+@media(min-width:64rem){
+  .home-v2 .canon__book{padding-left:2rem}
+  .home-v2 .canon__book:first-child{padding-left:1.35rem}
+}
+
+/* Explore: depth appears only after an explicit action. */
+.explore-page .hero{
+  position:relative;
+  overflow:hidden;
+  border-bottom:1px solid var(--rule);
+}
+.explore-page .hero::after{
+  content:"";
+  position:absolute;
+  width:28rem;
+  height:28rem;
+  right:-11rem;
+  top:-10rem;
+  border:1px solid rgba(181,138,58,.25);
+  border-radius:50%;
+  box-shadow:0 0 0 4rem rgba(181,138,58,.035),0 0 0 8rem rgba(27,62,112,.025);
+  pointer-events:none;
+}
+.explore-page .hero h1{max-width:9ch}
+.explore-page .explore-questions details,
+.explore-page .chronology-list details{transition:background .18s ease}
+.explore-page .explore-questions details[open],
+.explore-page .chronology-list details[open]{background:linear-gradient(90deg,color-mix(in srgb,var(--lapis-soft) 42%,transparent),transparent 76%)}
+.explore-page .explore-questions summary,
+.explore-page .chronology-list summary{padding-left:.15rem}
+.explore-page .compare-card{border-top-color:#b58a3a}
+.explore-page .compare-card dt{color:#8b6c30}
+[data-theme="dark"] .explore-page .compare-card dt{color:#d2ad67}
+
+/* Motion remains optional and minimal. */
+@media(prefers-reduced-motion:no-preference){
+  .home-v2 .idea-axis{animation:archReveal .7s .08s ease-out both}
+  @keyframes archReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+}
+@media(prefers-reduced-motion:reduce){.home-v2 .inquiry{transition:none}}
+
+/* Mobile: retain atmosphere without letting decoration compete with reading. */
+@media(max-width:63.99rem){
+  .home-v2 .gateway-hero::after{opacity:.30;background-position:72% center}
+  .home-v2 .gateway-hero__grid{min-height:auto}
+  .home-v2 .idea-axis{max-width:31rem;border-radius:8rem 8rem .25rem .25rem}
+  .home-v2 .gateway-hero h1{max-width:11ch}
+}
