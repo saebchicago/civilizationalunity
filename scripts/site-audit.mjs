@@ -64,12 +64,38 @@ for (const f of html) {
 const headers = fs.readFileSync("_headers", "utf8");
 if (headers.includes("max-age=31536000, immutable")) failures.push("_headers: unversioned assets cached immutable");
 if (!headers.includes("Content-Security-Policy:")) failures.push("_headers: missing CSP");
-for (const f of ["llms.txt", "about.html", "framework.html", "thanks.html"]) {
+for (const f of ["llms.txt", "about.html", "framework.html", "explore.html", "thanks.html", "data/core-works.json"]) {
   if (!fs.existsSync(f)) failures.push(`missing ${f}`);
+}
+
+const redirects = fs.readFileSync("_redirects", "utf8");
+if (!redirects.includes("/explore")) failures.push("_redirects: missing /explore route");
+const sitemap = fs.readFileSync("sitemap.xml", "utf8");
+if (!sitemap.includes("/explore</loc>")) failures.push("sitemap.xml: missing /explore");
+
+try {
+  const data = JSON.parse(fs.readFileSync("data/core-works.json", "utf8"));
+  if (!Array.isArray(data.works) || data.works.length < 10) failures.push("data/core-works.json: expected a non-trivial works array");
+  const seenDoi = new Set();
+  for (const [i, work] of (data.works || []).entries()) {
+    if (!work.title || work.year == null || !work.type) failures.push(`data/core-works.json: work ${i + 1} missing title/year/type`);
+    if (work.doi) {
+      if (!/^10\.\d{4,9}\/.+/.test(work.doi)) failures.push(`data/core-works.json: malformed DOI ${work.doi}`);
+      if (seenDoi.has(work.doi)) failures.push(`data/core-works.json: duplicate DOI ${work.doi}`);
+      seenDoi.add(work.doi);
+    }
+  }
+} catch (e) {
+  failures.push(`data/core-works.json: invalid JSON: ${e.message}`);
+}
+
+for (const f of ["explore.html", "assets/explore.js", "assets/nav.js", "llms.txt"]) {
+  const s = fs.readFileSync(f, "utf8").toLowerCase();
+  if (s.includes("concept atlas") || s.includes("intellectual atlas")) failures.push(`${f}: retired terminology found`);
 }
 
 if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log(`Site audit passed: ${html.length} HTML pages checked.`);
+console.log(`Site audit passed: ${html.length} HTML pages checked; structured scholarly record validated.`);
