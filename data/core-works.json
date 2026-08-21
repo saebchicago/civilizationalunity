@@ -6,229 +6,25 @@
     "verification_note": "Persistent identifiers and repository links are added only where independently verified against publisher, library, or institutional repository records."
   },
   "works": [
-    {
-      "type": "book",
-      "year": 2017,
-      "title": "Qur’anic Guidance for Good Governance: A Contemporary Perspective",
-      "role": "joint editor",
-      "coauthor_or_editor": "Stephen B. Young",
-      "publisher": "Palgrave Macmillan",
-      "place": "Cham",
-      "doi": "10.1007/978-3-319-57873-6",
-      "isbn": {
-        "hardcover": "9783319578729",
-        "softcover": "9783319862729",
-        "ebook": "9783319578736"
-      },
-      "url": "https://link.springer.com/book/10.1007/978-3-319-57873-6",
-      "verification_source": "Springer Nature"
-    },
-    {
-      "type": "book",
-      "year": 2013,
-      "title": "Guidance For Good Governance: Explorations in Qur’anic, Scientific and Cross-cultural Approaches",
-      "role": "co-editor",
-      "coauthor_or_editor": "Stephen B. Young",
-      "publisher": "International Islamic University Press and Caux Round Table",
-      "note": "CV lists 2008 and 2013 editions",
-      "isbn": {
-        "isbn13": "9789833855483"
-      },
-      "oclc": "301689026",
-      "url": "https://openlibrary.org/books/OL24081991M/Guidance_for_good_governance",
-      "verification_source": "Open Library / IIUM repository"
-    },
-    {
-      "type": "book",
-      "year": 1992,
-      "title": "Ummah or Nation: Identity Crisis in Contemporary Muslim Society",
-      "publisher": "The Islamic Foundation",
-      "place": "Leicester",
-      "translations": [
-        "Turkish",
-        "Bosnian"
-      ],
-      "isbn": {
-        "paperback_isbn10": "0860372200",
-        "hardcover_isbn10": "0860372197"
-      },
-      "url": "https://www.kubepublishing.com/products/ummah-or-nation-identity-crisis-in-contemporary-muslim-society",
-      "verification_source": "Kube Publishing / Open British National Bibliography"
-    },
-    {
-      "type": "book",
-      "year": 1988,
-      "title": "OIC: Introduction to an Islamic Political Institution",
-      "publisher": "IIIT",
-      "place": "Herndon, VA",
-      "translations": [
-        "Arabic"
-      ]
-    },
-    {
-      "type": "book",
-      "year": 1995,
-      "title": "A History of Khulafa-i-Rashidun",
-      "publisher": "Iqra International Educational Foundation",
-      "place": "Chicago",
-      "audience": "children",
-      "note": "CV states reprinted five times"
-    },
-    {
-      "type": "chapter",
-      "year": 2025,
-      "title": "Israel’s Gaza War: A Symbol of Collapsing Civilization",
-      "container": "Genocide in Gaza: Voices of Global Conscience",
-      "editors": [
-        "Ahmet Davutoglu",
-        "Richard Falk"
-      ],
-      "publisher": "Clarity Press",
-      "place": "Atlanta",
-      "pages": "121–136"
-    },
-    {
-      "type": "article",
-      "year": 2018,
-      "title": "The Question of Palestine and the Muslim World",
-      "journal": "New Middle Eastern Studies",
-      "volume": "8",
-      "issue": "2",
-      "pages": "84–106"
-    },
-    {
-      "type": "article",
-      "year": 2018,
-      "title": "Is Pakistan a Failed State? An Assessment of Islamist Ideals, Nationalist Articulation and Ground Realities",
-      "journal": "Insight Turkey",
-      "volume": "20",
-      "issue": "1",
-      "pages": "119–141"
-    },
-    {
-      "type": "article",
-      "year": 2017,
-      "title": "The Never-Ending Kashmir Dispute and Its Implications on the Contemporary Global Governance and Peace",
-      "journal": "Al-Shajarah",
-      "volume": "22",
-      "issue": "1",
-      "pages": "5–34"
-    },
-    {
-      "type": "article",
-      "year": 2016,
-      "title": "What is History?",
-      "journal": "International Journal of Islamic Thoughts",
-      "volume": "5",
-      "issue": "1",
-      "pages": "17–32",
-      "url": "https://irep.iium.edu.my/55386/",
-      "verification_source": "IIUM Repository"
-    },
-    {
-      "type": "article",
-      "year": 2013,
-      "title": "Civilizational Conflict, Renewal, or Transformation: Potential Role of the OIC",
-      "journal": "Islam and Civilisational Renewal",
-      "volume": "4",
-      "issue": "4",
-      "pages": "579–600",
-      "url": "https://irep.iium.edu.my/profile/853",
-      "verification_source": "IIUM Repository profile"
-    },
-    {
-      "type": "article",
-      "year": 2013,
-      "title": "Problems of Eurocentric Views of History: An Examination of Certain Elementary Views about Colonialism in the Muslim World",
-      "journal": "Al-Shajarah",
-      "volume": "18",
-      "issue": "1",
-      "pages": "35–58",
-      "url": "https://irep.iium.edu.my/32366/",
-      "verification_source": "IIUM Repository"
-    },
-    {
-      "type": "article",
-      "year": 2011,
-      "title": "Dialogue of Civilizations: Islamic and Western Perceptions",
-      "journal": "Al-Shajarah",
-      "volume": "16",
-      "issue": "2",
-      "pages": "157–179",
-      "url": "https://irep.iium.edu.my/profile/853",
-      "verification_source": "IIUM Repository profile"
-    },
-    {
-      "type": "article",
-      "year": 2009,
-      "title": "The Clash of Civilizations Thesis and Muslims: The Search for an Alternative Paradigm",
-      "journal": "Islamic Studies",
-      "volume": "48",
-      "issue": "2",
-      "pages": "189–217",
-      "url": "https://irep.iium.edu.my/7001/",
-      "verification_source": "IIUM Repository"
-    },
-    {
-      "type": "article",
-      "year": 2008,
-      "title": "Law, Religion and Human Dignity in the Muslim World Today: An Examination of OIC’s Cairo Declaration of Human Rights",
-      "journal": "Journal of Law and Religion",
-      "volume": "24",
-      "issue": "2",
-      "pages": "569–597",
-      "doi": "10.1017/S0748081400001715",
-      "url": "https://www.cambridge.org/core/journals/journal-of-law-and-religion/article/law-religion-and-human-dignity-in-the-muslim-world-today-an-examination-of-oics-cairo-declaration-of-human-rights/2FA842BFE6FF11CA97B70A7A36B22F5B",
-      "repository_url": "https://irep.iium.edu.my/7070/",
-      "verification_source": "Cambridge University Press / IIUM Repository"
-    },
-    {
-      "type": "article",
-      "year": 2002,
-      "title": "On History, Progress and Civilization",
-      "journal": "AJISS",
-      "volume": "19",
-      "issue": "2",
-      "pages": "46–67"
-    },
-    {
-      "type": "article",
-      "year": 1999,
-      "title": "Muslim and European Perceptions of Oceanic 'Trade' in the Fifteenth and Sixteenth Centuries and their Implications in International Politics",
-      "journal": "Intellectual Discourse",
-      "volume": "7",
-      "issue": "2",
-      "pages": "172–188",
-      "url": "https://journals.iium.edu.my/intdiscourse/index.php/id/article/download/407/357/832",
-      "verification_source": "Intellectual Discourse",
-      "metadata_note": "The supplied CV lists pages 172–188; the journal-hosted PDF displays 169–184. The site preserves the CV pagination until this discrepancy is resolved."
-    },
-    {
-      "type": "article",
-      "year": 1998,
-      "title": "Elite Formation in Muslim Countries: Capable Administrators or Loyal Servants? A General Survey of Colonial Rule in Muslim Countries",
-      "journal": "Islamic Studies",
-      "volume": "37",
-      "issue": "1",
-      "pages": "29–55"
-    },
-    {
-      "type": "article",
-      "year": 1986,
-      "title": "The Quranic Concept of Ummah",
-      "journal": "Journal of Institute of Muslim Minority Affairs",
-      "volume": "7",
-      "issue": "2",
-      "pages": "672–692"
-    },
-    {
-      "type": "article",
-      "year": 1985,
-      "title": "A Late Nineteenth Century Muslim Response to Western Criticism of Islam: A Case Study of the Life and Works of Amir Ali",
-      "journal": "AJISS",
-      "volume": "2",
-      "issue": "2",
-      "pages": "179–206"
-    }
+    {"type":"book","year":2017,"title":"Qur’anic Guidance for Good Governance: A Contemporary Perspective","role":"joint editor","coauthor_or_editor":"Stephen B. Young","publisher":"Palgrave Macmillan","place":"Cham","doi":"10.1007/978-3-319-57873-6","isbn":{"hardcover":"9783319578729","softcover":"9783319862729","ebook":"9783319578736"},"url":"https://link.springer.com/book/10.1007/978-3-319-57873-6","verification_source":"Springer Nature"},
+    {"type":"book","year":2013,"title":"Guidance For Good Governance: Explorations in Qur’anic, Scientific and Cross-cultural Approaches","role":"co-editor","coauthor_or_editor":"Stephen B. Young","publisher":"International Islamic University Press and Caux Round Table","note":"CV lists 2008 and 2013 editions","isbn":{"isbn13":"9789833855483"},"oclc":"301689026","url":"https://openlibrary.org/books/OL24081991M/Guidance_for_good_governance","verification_source":"Open Library / IIUM repository"},
+    {"type":"book","year":1992,"title":"Ummah or Nation: Identity Crisis in Contemporary Muslim Society","publisher":"The Islamic Foundation","place":"Leicester","translations":["Turkish","Bosnian"],"isbn":{"paperback_isbn10":"0860372200","hardcover_isbn10":"0860372197"},"url":"https://www.kubepublishing.com/products/ummah-or-nation-identity-crisis-in-contemporary-muslim-society","verification_source":"Kube Publishing / Open British National Bibliography"},
+    {"type":"book","year":1988,"title":"OIC: Introduction to an Islamic Political Institution","publisher":"IIIT","place":"Herndon, VA","translations":["Arabic"]},
+    {"type":"book","year":1995,"title":"A History of Khulafa-i-Rashidun","publisher":"Iqra International Educational Foundation","place":"Chicago","audience":"children","note":"CV states reprinted five times"},
+    {"type":"chapter","year":2025,"title":"Israel’s Gaza War: A Symbol of Collapsing Civilization","container":"Genocide in Gaza: Voices of Global Conscience","editors":["Ahmet Davutoglu","Richard Falk"],"publisher":"Clarity Press","place":"Atlanta","pages":"121–136"},
+    {"type":"article","year":2018,"title":"The Question of Palestine and the Muslim World","journal":"New Middle Eastern Studies","volume":"8","issue":"2","pages":"84–106","doi":"10.29311/nmes.v8i2.3059","verification_source":"New Middle Eastern Studies DOI record"},
+    {"type":"article","year":2018,"title":"Is Pakistan a Failed State? An Assessment of Islamist Ideals, Nationalist Articulation and Ground Realities","journal":"Insight Turkey","volume":"20","issue":"1","pages":"119–141","doi":"10.25253/99.2018201.08","url":"https://www.insightturkey.com/articles/is-pakistan-a-failed-state-an-assessment-of-islamist-ideals-nationalist-articulation-and-ground-realities","verification_source":"Insight Turkey"},
+    {"type":"article","year":2017,"title":"The Never-Ending Kashmir Dispute and Its Implications on the Contemporary Global Governance and Peace","journal":"Al-Shajarah","volume":"22","issue":"1","pages":"5–34","url":"https://irep.iium.edu.my/profile/853","verification_source":"IIUM Repository profile","metadata_note":"The supplied CV lists pages 5–34; the IIUM Repository lists pages 1–27. The site preserves the CV pagination until the authoritative issue record is checked."},
+    {"type":"article","year":2016,"title":"What is History?","journal":"International Journal of Islamic Thoughts","volume":"5","issue":"1","pages":"17–32","url":"https://irep.iium.edu.my/55386/","verification_source":"IIUM Repository"},
+    {"type":"article","year":2013,"title":"Civilizational Conflict, Renewal, or Transformation: Potential Role of the OIC","journal":"Islam and Civilisational Renewal","volume":"4","issue":"4","pages":"579–600","url":"https://irep.iium.edu.my/profile/853","verification_source":"IIUM Repository profile"},
+    {"type":"article","year":2013,"title":"Problems of Eurocentric Views of History: An Examination of Certain Elementary Views about Colonialism in the Muslim World","journal":"Al-Shajarah","volume":"18","issue":"1","pages":"35–58","url":"https://irep.iium.edu.my/32366/","verification_source":"IIUM Repository"},
+    {"type":"article","year":2011,"title":"Dialogue of Civilizations: Islamic and Western Perceptions","journal":"Al-Shajarah","volume":"16","issue":"2","pages":"157–179","url":"https://irep.iium.edu.my/profile/853","verification_source":"IIUM Repository profile"},
+    {"type":"article","year":2009,"title":"The Clash of Civilizations Thesis and Muslims: The Search for an Alternative Paradigm","journal":"Islamic Studies","volume":"48","issue":"2","pages":"189–217","url":"https://irep.iium.edu.my/7001/","verification_source":"IIUM Repository"},
+    {"type":"article","year":2008,"title":"Law, Religion and Human Dignity in the Muslim World Today: An Examination of OIC’s Cairo Declaration of Human Rights","journal":"Journal of Law and Religion","volume":"24","issue":"2","pages":"569–597","doi":"10.1017/S0748081400001715","url":"https://www.cambridge.org/core/journals/journal-of-law-and-religion/article/law-religion-and-human-dignity-in-the-muslim-world-today-an-examination-of-oics-cairo-declaration-of-human-rights/2FA842BFE6FF11CA97B70A7A36B22F5B","repository_url":"https://irep.iium.edu.my/7070/","verification_source":"Cambridge University Press / IIUM Repository","metadata_note":"Cambridge lists pages 569–597; the IIUM Repository profile lists 569–598. The site follows the publisher record."},
+    {"type":"article","year":2002,"title":"On History, Progress and Civilization","journal":"AJISS","volume":"19","issue":"2","pages":"46–67"},
+    {"type":"article","year":1999,"title":"Muslim and European Perceptions of Oceanic 'Trade' in the Fifteenth and Sixteenth Centuries and their Implications in International Politics","journal":"Intellectual Discourse","volume":"7","issue":"2","pages":"172–188","url":"https://journals.iium.edu.my/intdiscourse/index.php/id/article/download/407/357/832","verification_source":"Intellectual Discourse","metadata_note":"The supplied CV lists pages 172–188; the journal-hosted PDF displays 169–184. The site preserves the CV pagination until this discrepancy is resolved."},
+    {"type":"article","year":1998,"title":"Elite Formation in Muslim Countries: Capable Administrators or Loyal Servants? A General Survey of Colonial Rule in Muslim Countries","journal":"Islamic Studies","volume":"37","issue":"1","pages":"29–55"},
+    {"type":"article","year":1986,"title":"The Quranic Concept of Ummah","journal":"Journal of Institute of Muslim Minority Affairs","volume":"7","issue":"2","pages":"672–692"},
+    {"type":"article","year":1985,"title":"A Late Nineteenth Century Muslim Response to Western Criticism of Islam: A Case Study of the Life and Works of Amir Ali","journal":"AJISS","volume":"2","issue":"2","pages":"179–206"}
   ]
 }
