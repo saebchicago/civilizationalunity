@@ -1,0 +1,268 @@
+name: Apply E2E expert audit upgrades
+
+on:
+  push:
+    branches:
+      - civilizational-unity-source-polish
+    paths:
+      - '.github/workflows/apply-e2e-platinum-audit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: civilizational-unity-source-polish
+          fetch-depth: 0
+
+      - name: Apply source-grounded E2E upgrades
+        shell: python
+        run: |
+          from pathlib import Path
+          import json, re
+
+          ROOT = Path('.')
+          DOMAIN = 'https://civilizationunity.netlify.app'
+          APPROVED = 'Civilizations are born and progress when they recognize and practice human dignity, and they decline and fall when they stop.'
+
+          def read(name): return (ROOT / name).read_text(encoding='utf-8')
+          def write(name, text): (ROOT / name).write_text(text, encoding='utf-8')
+
+          pages = ['index.html','framework.html','writing.html','speaking.html','press.html']
+
+          # ---------- GLOBAL INFORMATION ARCHITECTURE ----------
+          for name in pages:
+              s = read(name)
+              current = {
+                  'index.html':'Home','framework.html':'Framework','writing.html':'Writing',
+                  'speaking.html':'Speaking','press.html':'Press'
+              }[name]
+              nav_items = [
+                  ('Home','/'),('Framework','/framework'),('Writing','/writing'),
+                  ('Speaking','/speaking'),('Press','/press'),('About','/about')
+              ]
+              links = []
+              for label, href in nav_items:
+                  attr = ' aria-current="page"' if label == current else ''
+                  links.append(f'      <a href="{href}"{attr}>{label}</a>')
+              nav = '<nav class="hdr__nav" aria-label="Primary">\n' + '\n'.join(links) + '\n    </nav>'
+              s = re.sub(r'<nav class="hdr__nav" aria-label="Primary">.*?</nav>', nav, s, flags=re.S)
+              s = s.replace('href="index.html"','href="/"')
+              s = s.replace('href="framework.html"','href="/framework"')
+              s = s.replace('href="writing.html"','href="/writing"')
+              s = s.replace('href="speaking.html"','href="/speaking"')
+              s = s.replace('href="press.html"','href="/press"')
+              s = s.replace('href="speaking.html#invite"','href="/speaking#invite"')
+              s = s.replace('href="speaking.html?talk=','href="/speaking?talk=')
+              write(name, s)
+
+          # ---------- METADATA: people-first SEO + entity clarity ----------
+          canonical_map = {
+              'index.html': DOMAIN + '/', 'framework.html': DOMAIN + '/framework',
+              'writing.html': DOMAIN + '/writing', 'speaking.html': DOMAIN + '/speaking',
+              'press.html': DOMAIN + '/press'
+          }
+          for name in pages:
+              s = read(name)
+              title = re.search(r'<title>(.*?)</title>', s, re.S).group(1).strip()
+              desc = re.search(r'<meta name="description" content="([^"]*)">', s, re.S).group(1).strip()
+              canonical = canonical_map[name]
+              s = re.sub(r'<link rel="canonical" href="[^"]+">', f'<link rel="canonical" href="{canonical}">', s)
+              extra = f'''\n<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">\n<meta property="og:site_name" content="Civilizational Unity">\n<meta property="og:title" content="{title}">\n<meta property="og:description" content="{desc}">\n<meta property="og:url" content="{canonical}">\n<meta name="twitter:title" content="{title}">\n<meta name="twitter:description" content="{desc}">'''
+              # remove duplicate non-home OG fields before adding a consistent block
+              s = re.sub(r'\n<meta property="og:site_name"[^>]*>', '', s)
+              if name != 'index.html':
+                  s = re.sub(r'\n<meta property="og:title"[^>]*>', '', s)
+                  s = re.sub(r'\n<meta property="og:description"[^>]*>', '', s)
+                  s = re.sub(r'\n<meta property="og:url"[^>]*>', '', s)
+              s = re.sub(r'\n<meta name="twitter:title"[^>]*>', '', s)
+              s = re.sub(r'\n<meta name="twitter:description"[^>]*>', '', s)
+              s = re.sub(r'\n<meta name="robots"[^>]*>', '', s)
+              insert_at = s.find('<meta name="theme-color"')
+              s = s[:insert_at] + extra + '\n' + s[insert_at:]
+              write(name, s)
+
+          # Home description and entity graph.
+          s = read('index.html')
+          s = re.sub(r'<meta name="description" content="[^"]*">',
+              '<meta name="description" content="Civilizational Unity is a public knowledge resource for historian Abdullah al-Ahsan: five books, more than fifty publications, the Dignity Framework, talks, videos, and source-linked scholarship on dignity, governance and civilizational change.">', s, count=1)
+          graph = {
+            '@context':'https://schema.org',
+            '@graph':[
+              {'@type':'WebSite','@id':DOMAIN+'/#website','url':DOMAIN+'/','name':'Civilizational Unity',
+               'description':'A public knowledge resource organizing the scholarship of historian Abdullah al-Ahsan.',
+               'about':{'@id':DOMAIN+'/#abdullah-al-ahsan'}},
+              {'@type':'ProfilePage','@id':DOMAIN+'/#profile','url':DOMAIN+'/','name':'Abdullah al-Ahsan | Civilizational Unity',
+               'isPartOf':{'@id':DOMAIN+'/#website'},'mainEntity':{'@id':DOMAIN+'/#abdullah-al-ahsan'}},
+              {'@type':'Person','@id':DOMAIN+'/#abdullah-al-ahsan','name':'Abdullah al-Ahsan',
+               'alternateName':['Abdullah Ahsan','Abdullah Al-Ahsan','Abdullahil Ahsan'],
+               'jobTitle':'Historian of Civilizations',
+               'description':'Historian of civilizations whose published work examines human dignity, cooperation, governance, civilizational encounter and decline.',
+               'knowsLanguage':['en','bn','hi','ur','ar','fr'],
+               'alumniOf':[{'@type':'CollegeOrUniversity','name':'University of Michigan'},
+                           {'@type':'CollegeOrUniversity','name':'McGill University'},
+                           {'@type':'CollegeOrUniversity','name':'Quaid-i-Azam University'}],
+               'affiliation':{'@type':'Organization','name':'Caux Round Table for Moral Capitalism','url':'https://www.cauxroundtable.org/'},
+               'sameAs':['https://www.wikidata.org/wiki/Q24946801','https://viaf.org/viaf/33537331',
+                         'https://www.juancole.com/author/abdullah-al-ahsan','https://www.islamicity.org/by/abdullah-al-ahsan/',
+                         'https://www.aljazeera.com/author/abdullah_al_ahsan_170217135228153/',
+                         'https://middleeastmonitor.com/6-author/prof-abdullah-al-ahsan','https://en.wikipedia.org/wiki/Abdullah_al-Ahsan']}
+            ]
+          }
+          ld = '<script type="application/ld+json">\n' + json.dumps(graph, ensure_ascii=False, indent=2) + '\n</script>'
+          s = re.sub(r'<script type="application/ld\+json">.*?</script>', ld, s, count=1, flags=re.S)
+
+          # Remove internal prelaunch material that must never ship publicly.
+          s = re.sub(r'\n<!-- DELETE THIS BLOCK BEFORE PUBLISHING\..*?</aside>\n', '\n', s, flags=re.S)
+
+          # Add concise answer architecture for humans and AI systems, without FAQ schema.
+          questions = '''\n<!-- ANSWER ARCHITECTURE -->\n<section class="band band--rule shell" id="questions">\n  <p class="eyebrow">Start with the questions</p>\n  <h2>What this body of work is trying to help you examine</h2>\n  <div class="answer-grid">\n    <article class="answer-card">\n      <h3>Who is Abdullah al-Ahsan?</h3>\n      <p>A historian of civilizations with a PhD in History from the University of Michigan, more than thirty years of academic teaching and research, five books, and more than fifty publications listed in his supplied CV.</p>\n      <a href="/press">Verify the biographical record →</a>\n    </article>\n    <article class="answer-card">\n      <h3>What is Civilizational Unity?</h3>\n      <p>A public knowledge resource that organizes al-Ahsan’s scholarship, public writing, talks, videos and source trails so readers can study the work rather than rely on a promotional summary.</p>\n      <a href="/about">Read the editorial standard →</a>\n    </article>\n    <article class="answer-card">\n      <h3>What is the Dignity Framework?</h3>\n      <p>An editorial teaching aid built around al-Ahsan’s requested formulation about human dignity and recurring relationships in his published work among dignity, cooperation, governance and civilizational progress or decline.</p>\n      <a href="/framework">Use the framework →</a>\n    </article>\n    <article class="answer-card">\n      <h3>How can I learn the approach?</h3>\n      <p>The Framework page turns recurring moves in his scholarship into a transparent reading practice, while clearly labeling the method as editorial synthesis rather than a named method authored by Professor al-Ahsan.</p>\n      <a href="/framework#practice">Learn the reading practice →</a>\n    </article>\n  </div>\n</section>\n'''
+          if 'id="questions"' not in s:
+              s = s.replace('<!-- WATCH -->', questions + '\n<!-- WATCH -->')
+
+          # Media accessibility disclosure and source-specific Caux wording.
+          s = s.replace('channel. Nothing loads from YouTube until you press play.</p>',
+              'channel. Nothing loads from YouTube until you press play.</p>\n    <p class="access-note"><strong>Media accessibility:</strong> videos are hosted by third-party source channels. Caption and transcript availability or accuracy is controlled by those channels; the site does not claim independent verification of their captions.</p>')
+          s = s.replace('A fourteen-year working partnership across two intellectual traditions, which is the\n          dialogue thesis practiced rather than argued',
+              'In a March 2020 Caux Round Table statement, Stephen B. Young described Professor al-Ahsan as having tutored him in Qur\'anic guidance for the prior fourteen years')
+          s = s.replace('Speaking invitations, press inquiries, editorial and advisory proposals all\n      reach him directly.',
+              'Use the contact form for speaking invitations, press inquiries, editorial proposals and other institutional requests.')
+          write('index.html', s)
+
+          # ---------- FRAMEWORK: turn scholarship into a teachable, source-labeled practice ----------
+          s = read('framework.html')
+          s = s.replace('<section class="band shell">\n  <p class="eyebrow">Forward reading</p>', '<section class="band shell" id="links">\n  <p class="eyebrow">Forward reading</p>')
+          practice = '''\n<section class="band band--rule shell" id="practice">\n  <p class="eyebrow">Learn the reading practice</p>\n  <h2>Six recurring moves to study in al-Ahsan’s scholarship</h2>\n  <p class="provenance"><strong>Editorial status:</strong> Professor al-Ahsan has not supplied a publication naming these six steps as a formal method. They are an editorial synthesis of recurring practices visible across the cited work, offered so students can study how the scholarship proceeds.</p>\n  <div class="method-grid">\n    <article class="method-step"><span>01</span><h3>Define the claim</h3><p>Start by asking what “history,” “civilization,” “dignity,” “ummah,” or another key term is being asked to explain.</p><small>Source trail: <cite>What is History?</cite>; <cite>On History, Progress and Civilization</cite>.</small></article>\n    <article class="method-step"><span>02</span><h3>Compare vantage points</h3><p>Place competing civilizational or historiographical interpretations beside one another rather than assuming one perspective is neutral.</p><small>Source trail: <cite>Dialogue of Civilizations</cite>; <cite>Problems of Eurocentric Views of History</cite>.</small></article>\n    <article class="method-step"><span>03</span><h3>Follow institutions</h3><p>Move from ideas to the institutions that embody, frustrate, or translate them into practice.</p><small>Source trail: the OIC studies; the two good-governance volumes.</small></article>\n    <article class="method-step"><span>04</span><h3>Test across cases</h3><p>Ask whether the same argument survives contact with different periods and settings instead of relying on a single illustrative case.</p><small>Source trail: oceanic trade, colonial rule, Pakistan, Kashmir, Palestine and Gaza.</small></article>\n    <article class="method-step"><span>05</span><h3>Read forward and backward</h3><p>Examine both conditions of cooperation and governance and the breakdowns associated with exclusion, coercion or institutional failure.</p><small>Source trail: dignity and governance scholarship alongside work on civilizational decline.</small></article>\n    <article class="method-step"><span>06</span><h3>Return to evidence</h3><p>Treat the framework as a question-generator, not a verdict. Ask what evidence would weaken, complicate, or overturn the interpretation.</p><small>This final step is an editorial safeguard built into this teaching aid.</small></article>\n  </div>\n</section>\n'''
+          if 'id="practice"' not in s:
+              s = s.replace('<section class="band band--tint">', practice + '\n<section class="band band--tint" id="cases">', 1)
+          s = s.replace('<section class="band shell">\n  <p class="eyebrow">Apply the framework</p>', '<section class="band shell" id="worksheet">\n  <p class="eyebrow">Apply the framework</p>')
+          s = s.replace('<section class="band band--rule shell">\n  <p class="eyebrow">Selected source trail</p>', '<section class="band band--rule shell" id="sources">\n  <p class="eyebrow">Selected source trail</p>')
+          # Accessible jump links and structured data for the teaching aid (creator is the project, not the professor).
+          s = s.replace('<a class="btn btn--quiet" href="/writing">Explore the sources</a>', '<a class="btn btn--quiet" href="/writing">Explore the sources</a>\n    <a class="btn btn--quiet" href="#practice">Learn the reading practice</a>')
+          if '"@type":"CreativeWork"' not in s:
+              framework_ld = '''\n<script type="application/ld+json">\n{\n  "@context":"https://schema.org",\n  "@type":"CreativeWork",\n  "name":"The Dignity Framework",\n  "url":"https://civilizationunity.netlify.app/framework",\n  "description":"An editorial, source-linked teaching aid based on recurring themes in Abdullah al-Ahsan’s published scholarship.",\n  "creator":{"@type":"Organization","name":"Civilizational Unity"},\n  "about":{"@type":"Person","name":"Abdullah al-Ahsan","sameAs":"https://www.wikidata.org/wiki/Q24946801"},\n  "educationalUse":["teaching","discussion","historical analysis"]\n}\n</script>'''
+              s = s.replace('</head>', framework_ld + '\n</head>')
+          write('framework.html', s)
+
+          # ---------- WRITING: strengthen scholarly provenance and information scent ----------
+          s = read('writing.html')
+          s = s.replace('This is a selected list, not the complete\n    record; the full bibliography is held in the IIUM repository, linked at the foot of the page.',
+              'This is a selected list rather than a claim of completeness. The IIUM repository profile and publisher or author archives linked below provide additional records.')
+          guide = '''\n  <div class="provenance provenance--wide"><strong>How to read this page:</strong> peer-reviewed scholarship, book chapters, books, and public commentary are labeled separately. A link indicates a source page or publisher record is available; the absence of a link is not a claim that a work is unavailable elsewhere. Bibliographic details are drawn from Professor al-Ahsan’s supplied CV and the linked records.</div>\n'''
+          if 'How to read this page:' not in s:
+              s = s.replace('<section class="band shell" style="padding-top:1.5rem">', '<section class="band shell" style="padding-top:1.5rem">\n' + guide)
+          # Avoid mixed-content link.
+          s = s.replace('href="http://irep.iium.edu.my/7001/"','href="https://irep.iium.edu.my/7001/"')
+          write('writing.html', s)
+
+          # ---------- SPEAKING: distinguish possible formats from promises ----------
+          s = read('speaking.html')
+          s = s.replace('<p class="eyebrow">Formats</p>\n        <h2>How it can work</h2>', '<p class="eyebrow">Suggested formats</p>\n        <h2>Ways to frame a request</h2>\n        <p class="source-note">These are request formats, not a guarantee of availability; scope and timing are confirmed case by case.</p>')
+          s = s.replace('<li>Remote or in person. He is based near Chicago and travels internationally.</li>', '<li>Remote or in-person format may be requested; availability is confirmed case by case.</li>')
+          s = s.replace('His email address is deliberately not published here. Use the form and he will reply from it.', 'His email address is not published on the site. Use the form to initiate contact.')
+          s = s.replace('<textarea id="f-msg" name="message" required></textarea>', '<textarea id="f-msg" name="message" required aria-describedby="form-privacy"></textarea>\n\n      <p class="form-note" id="form-privacy">Submitting this form sends the fields above to the site’s Netlify form handler. Do not include sensitive personal information.</p>')
+          s = s.replace('<form class="form" name="invitation" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">', '<form class="form" name="invitation" method="POST" action="/thanks" data-netlify="true" data-netlify-honeypot="bot-field">')
+          write('speaking.html', s)
+
+          # ---------- PRESS: purge unsupported promotion and time-sensitive overclaims ----------
+          s = read('press.html')
+          s = s.replace('<title>Press kit | Abdullah al-Ahsan</title>', '<title>Press & media | Civilizational Unity · Abdullah al-Ahsan</title>')
+          s = s.replace('Everything here is cleared for use without asking. Bios copy to your clipboard\n    in one click. The one-page sheet is the version to forward to a programming committee.',
+              'This page is designed to make accurate reporting easier. The bios are drafted from Professor al-Ahsan’s supplied CV and the source-linked record; verify time-sensitive details before publication. Bios copy to your clipboard in one click.')
+          s = s.replace('taught for three decades in Malaysia, Turkey and Pakistan, and', 'held academic teaching and research appointments in Malaysia, Turkey, Pakistan and the United States, and')
+          s = s.replace('whose work asks how the\n        recognition of human dignity produces cooperation and good governance, and how its absence\n        produces decline.', 'whose work examines relationships among human dignity, cooperation, governance and civilizational decline.')
+          s = s.replace('Across five books and more than\n        eighty published pieces spanning four decades he has developed a single argument: that a society\'s recognition of\n        human dignity secures cooperation, that cooperation becomes durable only when it is\n        institutionalized as good governance, and that civilizations decline when that chain breaks.',
+              'Across five books and more than fifty publications listed in his supplied CV, a recurring concern is the relationship among human dignity, cooperation, governance and civilizational change.')
+          s = s.replace('He writes regularly for Informed Comment and IslamiCity.', 'His recent public writing includes work published by Informed Comment, IslamiCity and Pegasus; dated links appear on the Writing page.')
+          s = s.replace('<tr><th scope="row">Books</th><td>Five, in four languages including Turkish, Bosnian and Arabic editions</td></tr>', '<tr><th scope="row">Books</th><td>Five. Selected works have Turkish, Bosnian and Arabic translated editions.</td></tr>')
+          s = s.replace('<tr><th scope="row">Based in</th><td>Greater Chicago, United States. Available remotely and internationally.</td></tr>', '<tr><th scope="row">Based in</th><td>Greater Chicago, United States</td></tr>')
+          s = s.replace('<tr><th scope="row">Writes regularly at</th><td>Informed Comment, IslamiCity, Pegasus. Monthly cadence through 2026.</td></tr>', '<tr><th scope="row">Recent public outlets</th><td>Informed Comment, IslamiCity and Pegasus; see dated links on the Writing page.</td></tr>')
+          s = s.replace('It reaches him directly and he answers press requests himself.', 'Use the form to initiate a photo or interview request.')
+          s = s.replace('He will say when a question falls outside his research. These are the areas\n    where he has a published record and can speak on short notice.', 'These areas are drawn from his published record. Availability for comment should be confirmed through the contact form.')
+          s = s.replace('Huntington, Bernard Lewis, and the case for a dialogue paradigm. Nine published works.', 'Huntington, Bernard Lewis, and the case for a dialogue paradigm; see the source-linked Writing page.')
+          press_note = '<p class="provenance"><strong>Source discipline:</strong> biographical facts on this page are based on Professor al-Ahsan’s supplied CV and linked authority or institutional records. Promotional superlatives and unverified availability claims are intentionally excluded.</p>'
+          if 'Source discipline:' not in s:
+              s = s.replace('<section class="band shell">\n  <p class="eyebrow">Bios</p>', '<section class="band shell">\n  ' + press_note + '\n  <p class="eyebrow">Bios</p>')
+          write('press.html', s)
+
+          # ---------- ABOUT / EDITORIAL STANDARD ----------
+          about = f'''<!DOCTYPE html>\n<html lang="en" data-theme="light">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Editorial standard & accessibility | Civilizational Unity</title>\n<meta name="description" content="How Civilizational Unity handles sources, editorial synthesis, corrections, accessibility, preservation, SEO and AI discoverability around Abdullah al-Ahsan’s scholarship.">\n<link rel="canonical" href="{DOMAIN}/about">\n<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">\n<meta property="og:site_name" content="Civilizational Unity">\n<meta property="og:title" content="Editorial standard & accessibility | Civilizational Unity">\n<meta property="og:description" content="The source, accessibility and editorial policy behind Civilizational Unity.">\n<meta property="og:url" content="{DOMAIN}/about">\n<meta property="og:image" content="{DOMAIN}/media/og-card.png">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:title" content="Editorial standard & accessibility | Civilizational Unity">\n<meta name="twitter:description" content="The source, accessibility and editorial policy behind Civilizational Unity.">\n<meta name="theme-color" content="#FBFAF8" media="(prefers-color-scheme: light)">\n<meta name="theme-color" content="#0B1420" media="(prefers-color-scheme: dark)">\n<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&amp;family=Spectral:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet">\n<link rel="stylesheet" href="assets/site.css">\n<script>try{{var t=localStorage.getItem("theme");if(t==="dark"||t==="light"){{document.documentElement.setAttribute("data-theme",t)}}else if(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches){{document.documentElement.setAttribute("data-theme","dark")}}}}catch(e){{}}</script>\n</head>\n<body>\n<a class="skip" href="#main">Skip to content</a>\n<header class="hdr"><div class="shell hdr__in"><a class="hdr__id" href="/">Civilizational Unity</a><nav class="hdr__nav" aria-label="Primary">\n      <a href="/">Home</a>\n      <a href="/framework">Framework</a>\n      <a href="/writing">Writing</a>\n      <a href="/speaking">Speaking</a>\n      <a href="/press">Press</a>\n      <a href="/about" aria-current="page">About</a>\n    </nav><div class="hdr__tools"><button class="iconbtn" id="theme" type="button" aria-label="Switch to dark theme"><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div></div></header>\n<main id="main">\n<section class="hero shell"><p class="eyebrow">Trust is part of the scholarship</p><h1>Editorial standard & accessibility</h1><p class="lede wide">Civilizational Unity is designed as a public knowledge resource around Abdullah al-Ahsan’s work, not as an advertising page. Its standard is simple: make the scholarship easier to find, learn and reuse without blurring the line between the professor’s own words, the published record and editorial interpretation.</p></section>\n<section class="band shell"><p class="eyebrow">Source hierarchy</p><h2>What counts as evidence here</h2><div class="source-ladder">\n<article><strong>1 · Direct wording</strong><p>When Professor al-Ahsan supplies or corrects wording, the site treats that wording as primary for the site and labels it when useful.</p></article>\n<article><strong>2 · Scholarly record</strong><p>Publication titles, dates, appointments and credentials are grounded in his supplied CV, publisher records, institutional pages, or authority identifiers.</p></article>\n<article><strong>3 · External reception</strong><p>Reviews and third-party statements are quoted sparingly, attributed, and linked to the source when available.</p></article>\n<article><strong>4 · Editorial synthesis</strong><p>Framework explanations, talk summaries and teaching prompts may synthesize the record. They are labeled as editorial and should not be cited as Professor al-Ahsan’s own wording.</p></article>\n</div></section>\n<section class="band band--tint"><div class="shell"><p class="eyebrow">No-hallucination rule</p><h2>Polish never outranks provenance</h2><p class="lede wide">A persuasive sentence is not kept merely because it sounds good. If a biographical claim, historical assertion, availability promise, numerical superlative or quotation cannot be traced to a reliable source, it is removed, softened, or explicitly labeled as editorial interpretation.</p><p class="source-note">This is an editorial policy for this site, not a claim that every external source is infallible. Corrections should improve both the visible text and the underlying source trail.</p></div></section>\n<section class="band shell"><p class="eyebrow">Accessibility</p><h2>Target: WCAG 2.2 AA</h2><p>The site is designed toward WCAG 2.2 Level AA rather than claiming formal certification. It uses semantic headings and landmarks, visible keyboard focus, a skip link, large controls, reduced-motion support, responsive layouts, strong text contrast, and no autoplaying media.</p><div class="notice"><strong>Known limitation:</strong> embedded videos are hosted by third-party source channels. Caption and transcript availability and accuracy depend on those channels unless a separately verified transcript is linked here.</div></section>\n<section class="band band--rule shell"><p class="eyebrow">Search & AI discoverability</p><h2>Optimize the record, not the hype</h2><p>Important claims are kept in visible text, pages have descriptive titles and canonical URLs, internal links use descriptive language, and structured data identifies the scholar and site without adding claims that are not visible to readers. A small <a href="/llms.txt">llms.txt</a> file is provided as a convenience to systems that choose to use it; it is not presented as a ranking requirement.</p></section>\n<section class="band band--rule shell"><p class="eyebrow">Corrections & preservation</p><h2>Designed to remain useful</h2><p>The site intentionally uses static HTML, CSS and JavaScript with no build dependency for ordinary reading. Source links and authority identifiers are preferred over copied publication files. To flag a correction, source question, accessibility barrier or broken link, use the <a href="/speaking#invite">contact form</a> and choose “Something else.”</p></section>\n</main>\n<footer class="foot"><div class="shell"><p class="foot__h">Civilizational Unity</p><p class="lede" style="font-size:1rem">The work of Abdullah al-Ahsan · Historian of Civilizations.</p><p class="foot__note">Editorial synthesis is labeled separately from Professor al-Ahsan’s own words. &copy; 2026 Abdullah al-Ahsan.</p></div></footer>\n<script src="assets/site.js"></script>\n</body></html>'''
+          write('about.html', about)
+
+          # ---------- FORM SUCCESS PAGE ----------
+          thanks = f'''<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Request received | Civilizational Unity</title><meta name="description" content="Confirmation that a Civilizational Unity contact request was submitted."><meta name="robots" content="noindex,follow"><link rel="canonical" href="{DOMAIN}/thanks"><link rel="stylesheet" href="assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><main id="main"><section class="hero shell"><p class="eyebrow">Request received</p><h1>Thank you.</h1><p class="lede wide">Your form submission has been sent to the site’s Netlify form handler.</p><div class="btnrow"><a class="btn btn--go" href="/">Return home</a><a class="btn btn--quiet" href="/speaking">Back to speaking</a></div></section></main></body></html>'''
+          write('thanks.html', thanks)
+
+          # ---------- SECURITY, CACHE, ROUTING ----------
+          headers = '''/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: SAMEORIGIN\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()\n  Strict-Transport-Security: max-age=31536000\n  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://i.ytimg.com; frame-src https://www.youtube-nocookie.com; connect-src 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; upgrade-insecure-requests\n/assets/*\n  Cache-Control: public, max-age=300, must-revalidate\n/media/*\n  Cache-Control: public, max-age=86400, must-revalidate\n/*.html\n  Cache-Control: public, max-age=0, must-revalidate\n'''
+          write('_headers', headers)
+          redirects = '''/framework   /framework.html   200\n/writing     /writing.html     200\n/speaking    /speaking.html    200\n/press       /press.html       200\n/about       /about.html       200\n/thanks      /thanks.html      200\n/cv          /writing          301\n'''
+          write('_redirects', redirects)
+
+          # ---------- AEO convenience, explicitly non-magical ----------
+          llms = f'''# Civilizational Unity\n\n> Public knowledge resource for the scholarship of historian Abdullah al-Ahsan.\n\n## Primary entity\n- Abdullah al-Ahsan — historian of civilizations\n- Wikidata: https://www.wikidata.org/wiki/Q24946801\n- VIAF: https://viaf.org/viaf/33537331\n\n## Author-approved site formulation\n{APPROVED}\n\n## Core pages\n- Home: {DOMAIN}/\n- Dignity Framework: {DOMAIN}/framework\n- Selected writing: {DOMAIN}/writing\n- Speaking topics: {DOMAIN}/speaking\n- Press and biographical record: {DOMAIN}/press\n- Editorial standard and accessibility: {DOMAIN}/about\n\n## Provenance rule\nDirect quotations and biographical claims should be traced to Professor al-Ahsan’s supplied wording/CV or linked publication, institutional, review, or authority records. Framework explanations, talk summaries, and teaching prompts may be editorial synthesis and are labeled as such on the site.\n\nThis file is a navigation convenience for systems that choose to use it. It is not a special ranking or AI-inclusion mechanism.\n'''
+          write('llms.txt', llms)
+
+          # ---------- SITEMAP ----------
+          sitemap = f'''<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>{DOMAIN}/</loc><priority>1.0</priority></url>\n  <url><loc>{DOMAIN}/framework</loc><priority>0.9</priority></url>\n  <url><loc>{DOMAIN}/writing</loc><priority>0.9</priority></url>\n  <url><loc>{DOMAIN}/speaking</loc><priority>0.9</priority></url>\n  <url><loc>{DOMAIN}/press</loc><priority>0.8</priority></url>\n  <url><loc>{DOMAIN}/about</loc><priority>0.8</priority></url>\n</urlset>\n'''
+          write('sitemap.xml', sitemap)
+
+          # ---------- JS: valid accessible media replacement ----------
+          s = read('assets/site.js')
+          old = '''  Array.prototype.forEach.call(document.querySelectorAll(".vid"), function (box) {\n    box.addEventListener("click", function () {\n      if (box.querySelector("iframe")) return;\n      var id = box.getAttribute("data-yt");\n      var extra = box.getAttribute("data-yt-params") || "";\n      var f = document.createElement("iframe");\n      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0" + (extra ? "&" + extra : "");\n      f.title = box.getAttribute("data-title") || "Video";\n      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen";\n      f.setAttribute("allowfullscreen", "");\n      box.appendChild(f);\n    });\n  });'''
+          new = '''  Array.prototype.forEach.call(document.querySelectorAll(".vid"), function (box) {\n    box.addEventListener("click", function () {\n      var id = box.getAttribute("data-yt");\n      var extra = box.getAttribute("data-yt-params") || "";\n      var wrap = document.createElement("div");\n      wrap.className = "vid vid--playing";\n      var f = document.createElement("iframe");\n      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0" + (extra ? "&" + extra : "");\n      f.title = box.getAttribute("data-title") || "Video";\n      f.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture; fullscreen";\n      f.setAttribute("allowfullscreen", "");\n      wrap.appendChild(f);\n      box.replaceWith(wrap);\n      f.focus();\n    });\n  });'''
+          if old in s: s = s.replace(old, new)
+          write('assets/site.js', s)
+
+          # ---------- CSS: award-level hierarchy without spectacle ----------
+          s = read('assets/site.css')
+          css = '''\n\n/* E2E expert-audit layer: trust, teaching, AEO and accessibility */\n.answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.75rem}\n.answer-card{border:1px solid var(--rule);background:var(--raise);padding:1.4rem;display:flex;flex-direction:column;min-height:13rem}\n.answer-card h3{margin-bottom:.7rem}.answer-card p{font-size:.98rem;line-height:1.55;color:var(--slate)}\n.answer-card a{margin-top:auto;font-family:var(--mono);font-size:.76rem;color:var(--lapis);text-underline-offset:3px}\n.access-note,.notice{max-width:52rem;margin:1rem 0 1.5rem;padding:1rem 1.1rem;background:var(--lapis-soft);border-left:3px solid var(--lapis);font-size:.93rem;line-height:1.6}\n.method-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:1.75rem}\n.method-step{background:var(--paper);padding:1.35rem;min-height:15rem;display:flex;flex-direction:column}\n.method-step>span{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--rubric);margin-bottom:.75rem}\n.method-step h3{margin-bottom:.65rem}.method-step p{font-size:.96rem;line-height:1.55}.method-step small{margin-top:auto;font-family:var(--mono);font-size:.7rem;line-height:1.55;color:var(--slate)}\n.source-ladder{display:grid;gap:.75rem;margin-top:1.5rem;max-width:58rem}\n.source-ladder article{border-left:3px solid var(--lapis);padding:.85rem 1rem;background:var(--raise)}\n.source-ladder strong{font-family:var(--mono);font-size:.76rem;letter-spacing:.05em}.source-ladder p{font-size:.96rem;margin-top:.35rem}\n.provenance--wide{max-width:58rem}.form-note{font-family:var(--mono);font-size:.7rem;line-height:1.55;color:var(--slate);margin:-.35rem 0 1rem}\n.vid--playing{cursor:default}\n@media(max-width:760px){.answer-grid,.method-grid{grid-template-columns:1fr}.answer-card,.method-step{min-height:0}}\n'''
+          if 'E2E expert-audit layer' not in s: s += css
+          write('assets/site.css', s)
+
+          # ---------- PERMANENT LOW-COST QUALITY GATE ----------
+          (ROOT/'scripts').mkdir(exist_ok=True)
+          audit = r'''import fs from 'node:fs';\nimport path from 'node:path';\nconst root=process.cwd();\nconst html=fs.readdirSync(root).filter(f=>f.endsWith('.html'));\nconst failures=[];\nconst banned=['EDIT-DOMAIN','still publishing monthly','Monthly cadence through 2026','more than\\n        eighty published pieces','answers press requests himself','DELETE THIS BLOCK BEFORE PUBLISHING'];\nfor(const f of html){\n  const s=fs.readFileSync(path.join(root,f),'utf8');\n  for(const token of banned) if(s.includes(token)) failures.push(`${f}: banned/stale phrase: ${token}`);\n  for(const req of ['<title>','name="description"','rel="canonical"','<main','<h1','class="skip"']) if(!s.includes(req)) failures.push(`${f}: missing ${req}`);\n  const ids=[...s.matchAll(/\\sid="([^"]+)"/g)].map(m=>m[1]);\n  const dup=ids.filter((x,i)=>ids.indexOf(x)!==i); if(dup.length) failures.push(`${f}: duplicate ids ${[...new Set(dup)].join(',')}`);\n  for(const m of s.matchAll(/<script type="application\\/ld\\+json">([\\s\\S]*?)<\\/script>/g)){try{JSON.parse(m[1])}catch(e){failures.push(`${f}: invalid JSON-LD: ${e.message}`)}}\n}\nconst headers=fs.readFileSync('_headers','utf8');\nif(headers.includes('max-age=31536000, immutable')) failures.push('_headers: unversioned assets must not be immutable for one year');\nif(!fs.existsSync('llms.txt')) failures.push('missing llms.txt');\nif(!fs.existsSync('about.html')) failures.push('missing about.html');\nif(!fs.existsSync('framework.html')) failures.push('missing framework.html');\nif(failures.length){console.error(failures.join('\\n'));process.exit(1)}\nconsole.log(`Site audit passed: ${html.length} HTML pages checked.`);\n'''.replace('\\n','\n')
+          write('scripts/site-audit.mjs', audit)
+
+          quality = '''name: Site quality\n\non:\n  pull_request:\n  push:\n    branches: [main]\n\npermissions:\n  contents: read\n\njobs:\n  audit:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/setup-node@v4\n        with:\n          node-version: '22'\n      - name: Run source, metadata and durability audit\n        run: node scripts/site-audit.mjs\n'''
+          (ROOT/'.github/workflows').mkdir(parents=True,exist_ok=True)
+          write('.github/workflows/site-quality.yml', quality)
+
+          # Deployment notes: remove stale counts and unsupported direct-delivery claim.
+          s = read('readme-deploy.md')
+          s = s.replace('Four static HTML pages, one stylesheet, one script, three files in `media/`.', 'Static HTML pages, one stylesheet, one script, and a small set of source/media files.')
+          s = s.replace('The form is the only path in, and it\nreaches him directly.', 'The form is the public contact path on the site.')
+          s = s.replace('submit all four page URLs', 'submit the public page URLs')
+          write('readme-deploy.md', s)
+
+      - name: Run quality gate
+        run: node scripts/site-audit.mjs
+
+      - name: Verify key E2E upgrades
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R "DELETE THIS BLOCK BEFORE PUBLISHING\|Monthly cadence through 2026\|still publishing monthly\|EDIT-DOMAIN" -- *.html 2>/dev/null
+          grep -q "Polish never outranks provenance" about.html
+          grep -q "Six recurring moves" framework.html
+          grep -q "max-age=300, must-revalidate" _headers
+          grep -q "Content-Security-Policy" _headers
+          grep -q "Site quality" .github/workflows/site-quality.yml
+          grep -q "author-approved site formulation" llms.txt
+
+      - name: Commit E2E upgrades
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- index.html framework.html writing.html speaking.html press.html about.html thanks.html llms.txt _headers _redirects sitemap.xml readme-deploy.md assets/site.js assets/site.css scripts/site-audit.mjs .github/workflows/site-quality.yml
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "feat: elevate Civilizational Unity through E2E expert audit [skip ci]"
+          git push origin HEAD:civilizational-unity-source-polish
