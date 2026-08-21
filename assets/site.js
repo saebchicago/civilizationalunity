@@ -11,12 +11,14 @@
   }
   load("/assets/site-core.js", function () {
     load("/assets/gateway.js", function () {
-      if (!window.location.hash) return;
-      var id;
-      try { id = decodeURIComponent(window.location.hash.slice(1)); }
-      catch (e) { id = window.location.hash.slice(1); }
-      var target = document.getElementById(id);
-      if (target) target.scrollIntoView({ block: "start" });
+      load("/assets/nav.js", function () {
+        if (!window.location.hash) return;
+        var id;
+        try { id = decodeURIComponent(window.location.hash.slice(1)); }
+        catch (e) { id = window.location.hash.slice(1); }
+        var target = document.getElementById(id);
+        if (target) target.scrollIntoView({ block: "start" });
+      });
     });
   });
 })();
