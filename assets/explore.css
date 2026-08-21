@@ -1,0 +1,33 @@
+/* Civilizational Unity — explore page */
+.explore-questions{border-top:1px solid var(--rule)}
+.explore-questions details,.chronology-list details,.study-prompts,.method-note{border-bottom:1px solid var(--rule)}
+.explore-questions summary,.chronology-list summary,.study-prompts summary,.method-note summary{cursor:pointer;list-style:none;padding:1.1rem 2rem 1.1rem 0;font-family:var(--display);font-size:clamp(1.2rem,2.4vw,1.6rem);position:relative}
+.explore-questions summary::-webkit-details-marker,.chronology-list summary::-webkit-details-marker,.study-prompts summary::-webkit-details-marker,.method-note summary::-webkit-details-marker{display:none}
+.explore-questions summary::after,.chronology-list summary::after,.study-prompts summary::after,.method-note summary::after{content:"+";position:absolute;right:.15rem;top:1.05rem;color:var(--rubric);font-family:var(--mono)}
+.explore-questions details[open] summary::after,.chronology-list details[open] summary::after,.study-prompts[open] summary::after,.method-note[open] summary::after{content:"–"}
+.explore-questions details>div,.chronology-list details>div,.study-prompts>*:not(summary),.method-note>*:not(summary){padding:0 0 1.3rem;max-width:46rem}
+.explore-questions p{margin:.1rem 0 .55rem;color:var(--slate)}
+.explore-questions a{font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase}
+.chronology-list{border-top:1px solid var(--rule)}
+.chronology-period{display:inline-block;min-width:6rem;color:var(--rubric);font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.chronology-work{display:grid;grid-template-columns:4.5rem 1fr;gap:1rem;padding:.8rem 0;border-top:1px solid var(--rule)}
+.chronology-work:first-child{border-top:0}
+.chronology-work time{font-family:var(--mono);font-size:.72rem;color:var(--slate)}
+.chronology-work strong{display:block;font-family:var(--display);font-size:1.05rem}
+.chronology-work small{display:block;color:var(--slate);margin-top:.2rem}
+.compare-controls{display:grid;gap:1rem;margin:1.5rem 0 2rem}
+.compare-controls label,.record-tool>label{display:grid;gap:.45rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+.compare-controls select,.record-tool select{width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--rule-hard);padding:.85rem;font:inherit}
+.compare-result{display:grid;gap:1.5rem;margin-bottom:1.5rem}
+.compare-card{border-top:2px solid var(--ink);padding-top:1rem}
+.compare-card h3{font-size:clamp(1.45rem,3vw,2rem);margin-bottom:.75rem}
+.compare-card dl{margin:0}
+.compare-card dl>div{display:grid;grid-template-columns:6rem 1fr;gap:1rem;padding:.6rem 0;border-top:1px solid var(--rule)}
+.compare-card dt{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+.compare-card dd{margin:0}
+.compare-card a{word-break:break-word}
+.study-prompts,.method-note{border-top:1px solid var(--rule);margin-top:1.5rem}
+.study-prompts ul{padding-left:1.2rem}
+.record-tool{max-width:48rem}
+.record-tool .btnrow{margin-top:1rem}
+@media(min-width:58rem){.compare-controls{grid-template-columns:1fr 1fr}.compare-result{grid-template-columns:1fr 1fr}.chronology-work{grid-template-columns:6rem 1fr}}
