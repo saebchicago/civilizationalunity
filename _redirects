@@ -1,3 +1,5 @@
+/explore        /explore.html        200
+/explore.html   /explore             301
 /framework      /framework.html      200
 /writing        /writing-v2.html     200
 /writing.html   /writing             301
