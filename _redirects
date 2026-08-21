@@ -7,5 +7,6 @@
 /press.html     /press               301
 /press-sheet    /press-sheet.html    200
 /about          /about.html          200
+/cv             /cv.html             200
+/cv.html        /cv                  301
 /thanks         /thanks.html         200
-/cv             /writing             301
