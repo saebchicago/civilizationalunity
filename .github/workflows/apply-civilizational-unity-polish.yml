@@ -1,0 +1,163 @@
+name: Apply Civilizational Unity source polish
+
+on:
+  push:
+    branches:
+      - civilizational-unity-source-polish
+    paths:
+      - '.github/workflows/apply-civilizational-unity-polish.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: civilizational-unity-source-polish
+          fetch-depth: 0
+
+      - name: Apply source-based content and brand updates
+        shell: python
+        run: |
+          from pathlib import Path
+          from urllib.parse import quote
+          import re
+
+          ROOT = Path('.')
+          DOMAIN = 'https://civilizationunity.netlify.app'
+          APPROVED = 'Civilizations are born and progress when they recognize and practice human dignity, and they decline and fall when they stop.'
+
+          def replace_all_html(old, new):
+              for path in ROOT.glob('*.html'):
+                  s = path.read_text(encoding='utf-8')
+                  ns = s.replace(old, new)
+                  if ns != s:
+                      path.write_text(ns, encoding='utf-8')
+
+          # Production URLs and explicit brand identity.
+          replace_all_html('https://EDIT-DOMAIN', DOMAIN)
+          replace_all_html('<a class="hdr__id" href="index.html">Abdullah al-Ahsan</a>', '<a class="hdr__id" href="index.html">Civilizational Unity</a>')
+          replace_all_html('Historian of civilizations. Writing on dignity,\n          governance and the long record of how societies hold together.', 'Civilizational Unity brings together Abdullah al-Ahsan’s work on human dignity,\n          cooperation, governance and civilizational change.')
+
+          # Abdullah al-Ahsan's exact requested formulation from his August 2026 email.
+          replace_all_html('Societies hold together when they recognize the dignity of the people inside them, and they come apart when they stop.', APPROVED)
+          replace_all_html('Societies hold together when they recognize the dignity of the people inside them, and come apart when they stop.', APPROVED)
+          replace_all_html('societies hold together when they recognize the dignity of the people inside them, and come apart when they stop.', APPROVED)
+
+          # Page titles: project first, scholar always explicit.
+          title_map = {
+              '<title>Abdullah al-Ahsan | Historian of Civilizations</title>': '<title>Civilizational Unity | Abdullah al-Ahsan · Historian of Civilizations</title>',
+              '<title>Writing | Abdullah al-Ahsan</title>': '<title>Writing | Civilizational Unity · Abdullah al-Ahsan</title>',
+              '<title>Speaking | Abdullah al-Ahsan</title>': '<title>Speaking | Civilizational Unity · Abdullah al-Ahsan</title>',
+              '<title>Press | Abdullah al-Ahsan</title>': '<title>Press | Civilizational Unity · Abdullah al-Ahsan</title>',
+              '<meta property="og:title" content="Abdullah al-Ahsan | Historian of Civilizations">': '<meta property="og:title" content="Civilizational Unity | Abdullah al-Ahsan">',
+          }
+          for old, new in title_map.items():
+              replace_all_html(old, new)
+
+          # Homepage: exact thesis, source-disciplined record, and framework framing.
+          p = ROOT / 'index.html'
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('<p class="eyebrow">Historian of Civilizations</p>\n  <h1 class="hero__name">', '<p class="eyebrow">Civilizational Unity · Historian of Civilizations</p>\n  <h1 class="hero__name">')
+          s = re.sub(
+              r'<p class="hero__claim">Societies hold together when they <b>recognize the dignity of the people\s+inside them</b>, and they come apart when they stop\.</p>',
+              '<p class="hero__claim">Civilizations are born and progress when they <b>recognize and practice human dignity</b>, and they decline and fall when they stop.</p>',
+              s,
+              flags=re.S,
+          )
+          s = re.sub(
+              r'<p class="hero__sub">Five books\. Forty-four years in print, 1982 to 2026\. Teaching across\s+Malaysia, Turkey, Pakistan and the United States\. One claim, tested against the early Muslim\s+polity, the age of oceanic trade, the colonial encounter, and Gaza\. PhD in History, University\s+of Michigan\. Fellow of the Caux Round Table\. Still publishing monthly\.</p>',
+              '<p class="hero__sub">Five books and more than fifty publications. More than thirty years of academic teaching and research, including appointments at International Islamic University Malaysia and Istanbul Şehir University. PhD in History, University of Michigan. Fellow of the Caux Round Table.</p>',
+              s,
+              flags=re.S,
+          )
+          s = s.replace('<h2 class="eyebrow eyebrow--h">The argument, in four links</h2>', '<h2 class="eyebrow eyebrow--h">The Dignity Framework · four links</h2>')
+          s = re.sub(
+              r'<p class="chain__note">A claim about civilizations is only worth making if it also predicts\s+failure\. Read the chain forward for the conditions under which societies flourish\. Invert it\s+and the same four links describe how they decline\. He has published on every link in both\s+directions\.</p>',
+              '<p class="chain__note">A source-linked reading of Abdullah al-Ahsan’s published argument: recognition of human dignity supports cooperation; durable cooperation requires governance; and these conditions shape civilizational progress. Use the control to examine the same relationship in reverse as dignity erodes.</p>',
+              s,
+              flags=re.S,
+          )
+          s = s.replace('<a class="btn btn--quiet" href="writing.html">Read the work</a>', '<a class="btn btn--quiet" href="writing.html">Read the work</a>\n    <a class="btn btn--quiet" href="framework.html">Use the framework</a>')
+          s = s.replace('Book launch, IIUM &middot; 2020 &middot; His remarks, confirmed by Professor al-Ahsan', 'Book launch, IIUM &middot; 2020 &middot; Playback begins at 3:07, the timestamp Professor al-Ahsan supplied')
+          p.write_text(s, encoding='utf-8')
+
+          # Speaking page: remove unverifiable operating/marketing claims; add provenance and pre-selection.
+          p = ROOT / 'speaking.html'
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('Every topic below is a course he has actually run or a book he has actually written. He is\n    comfortable with audiences that disagree with him.', 'The topics below are grounded in courses he has taught, books he has written, and published scholarship listed on this site.')
+          s = s.replace('<h2>Topics</h2>\n  <ul class="topics">', '<h2>Topics</h2>\n  <p class="provenance"><strong>Provenance:</strong> talk summaries are editorial syntheses of Professor al-Ahsan’s published work and teaching record; they are not quotations. Discussion and teaching aids are labeled separately.</p>\n  <ul class="topics">')
+          s = s.replace('Audiences leave with a testable alternative\n        framework instead of a slogan. Draws on nine published works.', 'The talk develops an alternative framework from his published work on Muslim-European contact, dialogue, and civilizational conflict.')
+          s = s.replace('Six fields. It reaches him directly. He reads everything that comes through\n        this form, and he answers invitations himself.', 'Use this form for speaking, media, seminar, and institutional requests.')
+
+          talks = [
+              'Dialogue or Clash: What the Record Actually Shows',
+              'Rise and Fall: How Civilizations Come Apart',
+              'Human Dignity Before Law: Reading the Cairo Declaration',
+              'The OIC at Fifty and After',
+              'Eurocentrism and the Method of History',
+          ]
+          for t in talks:
+              needle = f'<h3>{t}</h3>'
+              link = f'speaking.html?talk={quote(t)}#invite'
+              repl = needle + f'\n      <p class="topic__request"><a href="{link}">Request this talk &#8594;</a></p>'
+              s = s.replace(needle, repl)
+
+          select = '''\n      <label for="f-topic">Talk or topic <span class="opt">(optional)</span></label>\n      <select id="f-topic" name="topic">\n        <option value="">Select a topic</option>\n        <option>Dialogue or Clash: What the Record Actually Shows</option>\n        <option>Rise and Fall: How Civilizations Come Apart</option>\n        <option>Human Dignity Before Law: Reading the Cairo Declaration</option>\n        <option>The OIC at Fifty and After</option>\n        <option>Eurocentrism and the Method of History</option>\n      </select>\n'''
+          marker = '      <label for="f-when">Date or window <span class="opt">(optional)</span></label>'
+          if 'id="f-topic"' not in s:
+              s = s.replace(marker, select + '\n' + marker)
+          p.write_text(s, encoding='utf-8')
+
+          # Query-string prefill for one-click talk requests.
+          p = ROOT / 'assets/site.js'
+          s = p.read_text(encoding='utf-8')
+          marker = '  /* ---------- COPY ---------- */'
+          prefill = '''  /* ---------- SPEAKING TOPIC PREFILL ---------- */\n  var topicSelect = document.getElementById("f-topic");\n  if (topicSelect && window.URLSearchParams) {\n    var requestedTalk = new URLSearchParams(window.location.search).get("talk");\n    if (requestedTalk) {\n      Array.prototype.forEach.call(topicSelect.options, function (o) {\n        if (o.text === requestedTalk) topicSelect.value = o.value;\n      });\n    }\n  }\n\n'''
+          if 'SPEAKING TOPIC PREFILL' not in s:
+              s = s.replace(marker, prefill + marker)
+          p.write_text(s, encoding='utf-8')
+
+          # Light-touch visual polish; append once.
+          p = ROOT / 'assets/site.css'
+          s = p.read_text(encoding='utf-8')
+          css = '''\n\n/* Civilizational Unity source-polish layer */\n.hdr__id{letter-spacing:.02em}\n.hdr__id::after{content:"Abdullah al-Ahsan";display:block;font-family:Spectral,Georgia,serif;font-size:.68rem;font-weight:400;letter-spacing:.08em;opacity:.72;margin-top:.08rem}\n.provenance{max-width:72ch;margin:.75rem 0 1.5rem;padding:.9rem 1rem;border-left:2px solid currentColor;opacity:.82;font-size:.95rem}\n.topic__request{margin:.35rem 0 .7rem;font-size:.92rem}\n.topic__request a{text-decoration-thickness:1px;text-underline-offset:.2em}\n.framework-quote{max-width:22ch;font-family:Fraunces,Georgia,serif;font-size:clamp(2rem,5vw,4.25rem);line-height:1.06;letter-spacing:-.025em;margin:1.5rem 0 2rem}\n.framework-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--rule,#d9d5cf);border:1px solid var(--rule,#d9d5cf);margin:2rem 0}\n.framework-card{background:var(--bg,#fbfaf8);padding:1.4rem;min-height:12rem}\n.framework-card .eyebrow{margin-bottom:.6rem}\n.source-note{font-size:.9rem;opacity:.78;max-width:76ch}\n@media(max-width:760px){.framework-grid{grid-template-columns:1fr 1fr}.hdr__id::after{display:none}}\n@media(max-width:480px){.framework-grid{grid-template-columns:1fr}}\n@media print{.hdr,.foot,.btnrow,.no-print{display:none!important}.band,.hero{padding:1rem 0!important}.framework-quote{font-size:28pt}.framework-grid{grid-template-columns:repeat(4,1fr)}body{background:white!important;color:black!important}}\n'''
+          if 'Civilizational Unity source-polish layer' not in s:
+              s += css
+          p.write_text(s, encoding='utf-8')
+
+          # SEO support files.
+          for name in ('robots.txt', 'sitemap.xml', 'readme-deploy.md'):
+              p = ROOT / name
+              if p.exists():
+                  s = p.read_text(encoding='utf-8').replace('https://EDIT-DOMAIN', DOMAIN).replace('EDIT-DOMAIN', 'civilizationunity.netlify.app')
+                  p.write_text(s, encoding='utf-8')
+
+      - name: Verify key claims and placeholders
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -R "EDIT-DOMAIN" -- *.html robots.txt sitemap.xml 2>/dev/null
+          ! grep -R "Societies hold together when they recognize" -- *.html 2>/dev/null
+          grep -q "Civilizations are born and progress when they recognize and practice human dignity" index.html
+          grep -q "Civilizational Unity" index.html
+          grep -q "Provenance:" speaking.html
+          grep -q 'id="f-topic"' speaking.html
+
+      - name: Commit generated polish
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- index.html writing.html speaking.html press.html robots.txt sitemap.xml readme-deploy.md assets/site.js assets/site.css
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "feat: source-ground Civilizational Unity public experience [skip ci]"
+          git push origin HEAD:civilizational-unity-source-polish
