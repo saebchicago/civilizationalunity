@@ -16,5 +16,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/site.js
+          node --check assets/site-core.js
+          node --check assets/gateway.js
       - name: Run source, metadata and durability audit
         run: node scripts/site-audit.mjs
