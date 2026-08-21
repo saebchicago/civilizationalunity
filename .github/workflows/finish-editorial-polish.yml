@@ -1,3 +1,4 @@
+# One-shot editorial polish; remove after successful run.
 name: Final interior editorial polish
 on:
   push:
@@ -31,7 +32,6 @@ jobs:
           for f in ['writing.html','speaking.html','press.html']:
               base_polish(f)
 
-          # WRITING: idea-first introduction + curated route; source mechanics stay quiet.
           p=Path('writing.html'); s=p.read_text()
           s=re.sub(r'<section class="hero shell" style="padding-bottom:0">.*?</section>', '''<section class="hero shell">
   <p class="hero-kicker">The published record</p>
@@ -57,7 +57,6 @@ jobs:
           s=s.replace('<span class="filters__lbl">Show</span>','<span class="filters__lbl">Browse by form</span>')
           p.write_text(s)
 
-          # SPEAKING: less product language, more conversation and scholarship.
           p=Path('speaking.html'); s=p.read_text()
           s=re.sub(r'<section class="hero shell" style="padding-bottom:0">.*?</section>', '''<section class="hero shell">
   <p class="hero-kicker">Lectures, seminars and public conversation</p>
@@ -73,7 +72,6 @@ jobs:
           s=s.replace('One-page sheet for a programming committee<br>\n        <a href="/press-sheet">al-ahsan-one-sheet.pdf</a>','Printable sheet for a programming committee<br>\n        <a href="/press-sheet">Open media sheet</a>')
           p.write_text(s)
 
-          # PRESS: retain utility but remove defensive/meta tone.
           p=Path('press.html'); s=p.read_text()
           s=re.sub(r'<section class="hero shell" style="padding-bottom:0">.*?</section>', '''<section class="hero shell">
   <p class="hero-kicker">For editors, producers and event organizers</p>
@@ -86,7 +84,6 @@ jobs:
           s=s.replace('These areas are drawn from his published record. Availability for comment should be confirmed through the contact form.','These subjects recur across his published record; interview and event availability can be requested through the contact form.')
           p.write_text(s)
 
-          # HOMEPAGE: remove the last traces of meta-site language.
           p=Path('index.html'); s=p.read_text()
           s=s.replace('Independent reviews are linked in full, including criticism as well as praise.','Independent reviews place the work in scholarly conversation, with the full texts linked for context.')
           s=s.replace('<h2>Let the record do the praising.</h2>','<h2>Independent readings of the work.</h2>')
