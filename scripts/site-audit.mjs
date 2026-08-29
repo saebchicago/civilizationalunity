@@ -75,11 +75,26 @@ const homeText = home.replace(/<[^>]+>/g, "");
 if (!homeText.includes(approved)) failures.push("index.html: missing Professor al-Ahsan’s approved dignity formulation");
 const loader = fs.readFileSync("assets/site.js", "utf8");
 if (!loader.includes("/assets/visual-polish.css")) failures.push("assets/site.js: visual polish layer is not loaded");
+if (!loader.includes("/assets/learning.js")) failures.push("assets/site.js: learning layer is not loaded");
 
 const redirects = fs.readFileSync("_redirects", "utf8");
 if (!redirects.includes("/explore")) failures.push("_redirects: missing /explore route");
+if (!redirects.includes("/learn")) failures.push("_redirects: missing /learn alias");
 const sitemap = fs.readFileSync("sitemap.xml", "utf8");
 if (!sitemap.includes("/explore</loc>")) failures.push("sitemap.xml: missing /explore");
+
+const explore = fs.readFileSync("explore.html", "utf8");
+for (const marker of ["LearningResource", "Guided paths", "For seminars &amp; reading groups", "Carry the record forward"]) {
+  if (!explore.includes(marker)) failures.push(`explore.html: missing learning marker ${marker}`);
+}
+const learning = fs.readFileSync("assets/learning.js", "utf8");
+for (const marker of ["learning-entry-home", "path-dignity", "path-dialogue", "path-history", "initWritingSearch"]) {
+  if (!learning.includes(marker)) failures.push(`assets/learning.js: missing learning affordance ${marker}`);
+}
+const nav = fs.readFileSync("assets/nav.js", "utf8");
+for (const marker of ["/explore","Learn","/framework","Ideas","/writing","Writing","/speaking","Talks"]) {
+  if (!nav.includes(marker)) failures.push(`assets/nav.js: missing normalized navigation marker ${marker}`);
+}
 
 try {
   const data = JSON.parse(fs.readFileSync("data/core-works.json", "utf8"));
@@ -106,4 +121,4 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log(`Site audit passed: ${html.length} HTML pages checked; scholarly record and visual layer validated.`);
+console.log(`Site audit passed: ${html.length} HTML pages checked; scholarly record, learning paths and visual layer validated.`);
