@@ -1,0 +1,8 @@
+/* Civilizational Unity — shared learning controls */
+.topic-search{display:grid;gap:.75rem;align-items:end;margin:1.5rem 0 1rem;padding:1.1rem 0;border-block:1px solid var(--rule)}
+.topic-search label{display:grid;gap:.45rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
+.topic-search input{width:100%;min-height:48px;border:1px solid var(--rule-hard);background:var(--paper);color:var(--ink);padding:.75rem .9rem;font-family:var(--body);font-size:1rem;line-height:1.3}
+.topic-search input::placeholder{color:var(--slate);opacity:.78}
+.topic-search__clear{width:max-content}
+.topic-search__empty{margin:.75rem 0 0}
+@media(min-width:48rem){.topic-search{grid-template-columns:minmax(0,1fr) auto}.topic-search__clear{margin-bottom:0}}
