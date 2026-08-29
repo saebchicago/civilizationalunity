@@ -1,4 +1,21 @@
-/* Civilizational Unity — explore page */
+/* Civilizational Unity — learning and exploration page */
+.learning-hero{max-width:68rem}
+.learning-hero .lede{max-width:48rem}
+.learning-routes,.path-grid,.seminar-grid{display:grid;border-top:1px solid var(--rule)}
+.learning-route,.learning-path{padding:1.7rem 0;border-bottom:1px solid var(--rule)}
+.route-kicker,.path-number{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--rubric);margin:0 0 .75rem}
+.learning-route h3,.learning-path h3{font-size:clamp(1.45rem,3vw,2.1rem);font-weight:400;margin-bottom:.75rem}
+.learning-route p:not(.route-kicker),.learning-path>p:not(.path-number){color:var(--slate);max-width:34rem}
+.learning-route>a{display:inline-block;margin-top:.75rem;font-family:var(--mono);font-size:.74rem;letter-spacing:.04em;text-underline-offset:.25rem}
+.path-grid{gap:0}
+.learning-path{position:relative}
+.path-steps{margin:1.2rem 0 0;padding:0;list-style:none;display:grid;gap:.6rem}
+.path-steps li{padding-top:.6rem;border-top:1px solid var(--rule);font-size:.95rem}
+.path-steps a{text-underline-offset:.25rem}
+.concept-grid{display:grid;margin:1.5rem 0 0;border-top:1px solid var(--rule)}
+.concept-grid>div{padding:1.25rem 0;border-bottom:1px solid var(--rule)}
+.concept-grid dt{font-family:var(--display);font-size:1.35rem;line-height:1.2;margin-bottom:.35rem}
+.concept-grid dd{margin:0;color:var(--slate);max-width:34rem}
 .explore-questions{border-top:1px solid var(--rule)}
 .explore-questions details,.chronology-list details,.study-prompts,.method-note{border-bottom:1px solid var(--rule)}
 .explore-questions summary,.chronology-list summary,.study-prompts summary,.method-note summary{cursor:pointer;list-style:none;padding:1.1rem 2rem 1.1rem 0;font-family:var(--display);font-size:clamp(1.2rem,2.4vw,1.6rem);position:relative}
@@ -15,6 +32,7 @@
 .chronology-work time{font-family:var(--mono);font-size:.72rem;color:var(--slate)}
 .chronology-work strong{display:block;font-family:var(--display);font-size:1.05rem}
 .chronology-work small{display:block;color:var(--slate);margin-top:.2rem}
+.compare-anchor{scroll-margin-top:calc(var(--hdr) + 1.5rem)}
 .compare-controls{display:grid;gap:1rem;margin:1.5rem 0 2rem}
 .compare-controls label,.record-tool>label{display:grid;gap:.45rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)}
 .compare-controls select,.record-tool select{width:100%;background:var(--paper);color:var(--ink);border:1px solid var(--rule-hard);padding:.85rem;font:inherit}
@@ -30,4 +48,27 @@
 .study-prompts ul{padding-left:1.2rem}
 .record-tool{max-width:48rem}
 .record-tool .btnrow{margin-top:1rem}
-@media(min-width:58rem){.compare-controls{grid-template-columns:1fr 1fr}.compare-result{grid-template-columns:1fr 1fr}.chronology-work{grid-template-columns:6rem 1fr}}
+.seminar-grid{gap:0;margin-top:1.5rem}
+.seminar-grid>div{padding:1.5rem 0;border-bottom:1px solid var(--rule)}
+.seminar-grid h3{font-size:1.5rem;font-weight:400;margin-bottom:.8rem}
+.seminar-steps{margin:0;padding-left:1.25rem;color:var(--slate)}
+.seminar-steps li+li{margin-top:.55rem}
+.editorial-note{margin-top:1.25rem;font-size:.9rem;color:var(--slate);max-width:48rem}
+@media(min-width:58rem){
+  .learning-routes{grid-template-columns:repeat(3,1fr)}
+  .learning-route{padding:1.8rem;border-right:1px solid var(--rule)}
+  .learning-route:first-child{padding-left:0}
+  .learning-route:last-child{border-right:0;padding-right:0}
+  .path-grid{grid-template-columns:1fr 1fr}
+  .learning-path{padding:2rem}
+  .learning-path:nth-child(odd){padding-left:0;border-right:1px solid var(--rule)}
+  .concept-grid{grid-template-columns:1fr 1fr}
+  .concept-grid>div:nth-child(odd){padding-right:2rem;border-right:1px solid var(--rule)}
+  .concept-grid>div:nth-child(even){padding-left:2rem}
+  .seminar-grid{grid-template-columns:1fr 1fr}
+  .seminar-grid>div:first-child{padding-right:2rem;border-right:1px solid var(--rule)}
+  .seminar-grid>div:last-child{padding-left:2rem}
+  .compare-controls{grid-template-columns:1fr 1fr}
+  .compare-result{grid-template-columns:1fr 1fr}
+  .chronology-work{grid-template-columns:6rem 1fr}
+}

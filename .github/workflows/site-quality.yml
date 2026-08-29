@@ -20,6 +20,7 @@ jobs:
         run: |
           node --check assets/site.js
           node --check assets/site-core.js
+          node --check assets/learning.js
           node --check assets/gateway.js
           node --check assets/nav.js
           node --check assets/explore.js
