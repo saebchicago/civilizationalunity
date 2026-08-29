@@ -24,7 +24,10 @@
   }
 
   function normalizedHref(a){
-    try{return new URL(a.getAttribute("href"),window.location.origin).pathname}catch(e){return a.getAttribute("href")||""}
+    try{
+      var u=new URL(a.getAttribute("href"),window.location.origin);
+      return u.pathname+u.hash;
+    }catch(e){return a.getAttribute("href")||""}
   }
 
   function normalizeNav(nav){
@@ -41,11 +44,11 @@
     nav.textContent="";
     defs.forEach(function(def){
       var href=def[0],label=def[1];
-      var lookup=href.split("#")[0];
-      var a=existing[lookup]||document.createElement("a");
+      var activeLookup=href.split("#")[0];
+      var a=existing[href]||document.createElement("a");
       a.href=href;
       a.textContent=label;
-      if(active===lookup)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+      if(active===activeLookup&&href.indexOf("#")===-1)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
       nav.appendChild(a);
     });
   }
