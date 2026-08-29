@@ -71,7 +71,8 @@ for (const f of ["llms.txt", "about.html", "framework.html", "explore.html", "th
 
 const home = fs.readFileSync("index.html", "utf8");
 const approved = "Civilizations are born and progress when they recognize and practice human dignity, and they decline and fall when they stop.";
-if (!home.includes(approved)) failures.push("index.html: missing Professor al-Ahsan’s approved dignity formulation");
+const homeText = home.replace(/<[^>]+>/g, "");
+if (!homeText.includes(approved)) failures.push("index.html: missing Professor al-Ahsan’s approved dignity formulation");
 const loader = fs.readFileSync("assets/site.js", "utf8");
 if (!loader.includes("/assets/visual-polish.css")) failures.push("assets/site.js: visual polish layer is not loaded");
 
