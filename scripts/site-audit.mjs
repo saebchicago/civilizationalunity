@@ -65,7 +65,7 @@ for (const f of html) {
 const headers = fs.readFileSync("_headers", "utf8");
 if (headers.includes("max-age=31536000, immutable")) failures.push("_headers: unversioned assets cached immutable");
 if (!headers.includes("Content-Security-Policy:")) failures.push("_headers: missing CSP");
-for (const f of ["llms.txt", "about.html", "framework.html", "explore.html", "thanks.html", "data/core-works.json", "assets/civilizational-motif.svg", "assets/visual-polish.css"]) {
+for (const f of ["llms.txt", "about.html", "framework.html", "explore.html", "thanks.html", "data/core-works.json", "assets/civilizational-motif.svg", "assets/visual-polish.css", "assets/learning.css"]) {
   if (!fs.existsSync(f)) failures.push(`missing ${f}`);
 }
 
@@ -88,8 +88,22 @@ for (const marker of ["LearningResource", "Guided paths", "For seminars &amp; re
   if (!explore.includes(marker)) failures.push(`explore.html: missing learning marker ${marker}`);
 }
 const learning = fs.readFileSync("assets/learning.js", "utf8");
-for (const marker of ["learning-entry-home", "path-dignity", "path-dialogue", "path-history", "initWritingSearch"]) {
-  if (!learning.includes(marker)) failures.push(`assets/learning.js: missing learning affordance ${marker}`);
+for (const marker of [
+  "learning-entry-home",
+  "path-dignity",
+  "path-dialogue",
+  "path-history",
+  "initWritingSearch",
+  "human-stakes-home",
+  "human-reflection",
+  "Private by design",
+  "civilizationalUnityReflection:"
+]) {
+  if (!learning.includes(marker)) failures.push(`assets/learning.js: missing learning or reflection affordance ${marker}`);
+}
+const learningCss = fs.readFileSync("assets/learning.css", "utf8");
+for (const marker of [".human-stakes-home", ".reflection-grid", ".reflection-notebook", ".reflection-privacy"]) {
+  if (!learningCss.includes(marker)) failures.push(`assets/learning.css: missing reflection style ${marker}`);
 }
 const nav = fs.readFileSync("assets/nav.js", "utf8");
 for (const marker of ["/explore","Learn","/framework","Ideas","/writing","Writing","/speaking","Talks"]) {
@@ -121,4 +135,4 @@ if (failures.length) {
   console.error(failures.join("\n"));
   process.exit(1);
 }
-console.log(`Site audit passed: ${html.length} HTML pages checked; scholarly record, learning paths and visual layer validated.`);
+console.log(`Site audit passed: ${html.length} HTML pages checked; scholarly record, learning paths, reflection layer and visual layer validated.`);
