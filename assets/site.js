@@ -1,14 +1,8 @@
-/* Civilizational Unity — stable behavior loader.
-   Keep the original site behavior isolated from optional scholarly exploration tools. */
+/* Civilizational Unity — behavior loader.
+   One stylesheet layer and one behavior file. Everything the reader needs is
+   already in the HTML; this only adds theme, filtering and video facades. */
 (function () {
   "use strict";
-  function load(src, done) {
-    var s = document.createElement("script");
-    s.src = src;
-    s.onload = done || function () {};
-    s.onerror = done || function () {};
-    document.head.appendChild(s);
-  }
   function loadStyle(href) {
     if (document.querySelector('link[href="' + href + '"]')) return;
     var l = document.createElement("link");
@@ -17,19 +11,7 @@
     document.head.appendChild(l);
   }
   loadStyle("/assets/visual-polish.css");
-  loadStyle("/assets/learning.css");
-  load("/assets/site-core.js", function () {
-    load("/assets/learning.js", function () {
-      load("/assets/gateway.js", function () {
-        load("/assets/nav.js", function () {
-          if (!window.location.hash) return;
-          var id;
-          try { id = decodeURIComponent(window.location.hash.slice(1)); }
-          catch (e) { id = window.location.hash.slice(1); }
-          var target = document.getElementById(id);
-          if (target) target.scrollIntoView({ block: "start" });
-        });
-      });
-    });
-  });
+  var s = document.createElement("script");
+  s.src = "/assets/site-core.js";
+  document.head.appendChild(s);
 })();
