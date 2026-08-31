@@ -10,7 +10,10 @@ const banned = [
   "answers press requests himself",
   "DELETE THIS BLOCK BEFORE PUBLISHING",
   "more than eighty published pieces",
-  "Societies hold together when they recognize the dignity"
+  "Societies hold together when they recognize the dignity",
+  "Browse all 50+ publications",
+  "verified bibliographic records",
+  "Fifty-plus publications"
 ];
 
 function count(s, needle) {
@@ -128,6 +131,29 @@ for (const f of [...html, "assets/site.js", "assets/site-core.js", "assets/site.
   const s = fs.readFileSync(f, "utf8");
   for (const token of retired) {
     if (s.includes(token)) failures.push(`${f}: retired affordance still present: ${token}`);
+  }
+}
+
+/* A linked citation must resolve to the work itself. The IIUM repository profile is
+   the author's landing page: correct in schema.org sameAs, misleading on a title. */
+for (const f of html) {
+  const s = fs.readFileSync(f, "utf8");
+  for (const m of s.matchAll(/<cite><a href="([^"]+)"/g)) {
+    if (m[1].includes("irep.iium.edu.my/profile/")) {
+      failures.push(`${f}: citation links to the author profile rather than the work: ${m[1]}`);
+    }
+  }
+}
+
+/* The archive is a selected record. Nothing may promise a count it does not list. */
+const writing = fs.readFileSync("writing-v2.html", "utf8");
+const listed = (writing.match(/class="piece"/g) || []).length;
+for (const f of html) {
+  const s = fs.readFileSync(f, "utf8");
+  for (const m of s.matchAll(/(?:all|browse)\s+(\d+)\+?\s+publications/gi)) {
+    if (Number(m[1]) > listed) {
+      failures.push(`${f}: promises ${m[1]} publications but the archive lists ${listed}`);
+    }
   }
 }
 
