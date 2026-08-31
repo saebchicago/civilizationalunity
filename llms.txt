@@ -10,10 +10,13 @@
 ## Author-approved site formulation
 Civilizations are born and progress when they recognize and practice human dignity, and they decline and fall when they stop.
 
+## Recurring categories
+Professor al-Ahsan groups the recurring line of argument into four categories: Governance, Dignity, Cooperation, Flourishing. They are categories of the published record, not stages of a causal sequence.
+
 ## Core pages
 - Home: https://civilizationunity.netlify.app/
 - Explore the work: https://civilizationunity.netlify.app/explore
-- Ideas and source trail: https://civilizationunity.netlify.app/framework
+- The four categories and the source trail: https://civilizationunity.netlify.app/framework
 - Selected writing: https://civilizationunity.netlify.app/writing
 - Talks and inquiries: https://civilizationunity.netlify.app/speaking
 - About Abdullah al-Ahsan: https://civilizationunity.netlify.app/about

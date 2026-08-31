@@ -100,9 +100,6 @@
   background:#b58a3a;
   opacity:.7;
 }
-.home-v2 .inquiry{transition:background .22s ease,padding-left .22s ease}
-.home-v2 .inquiry:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--lapis-soft) 52%,transparent),transparent 74%)}
-.home-v2 .inquiry>a{border-color:#b58a3a}
 
 /* Books gain a quiet physical-library character. */
 .home-v2 .canon__book::before{
@@ -155,7 +152,7 @@
   .home-v2 .idea-axis{animation:archReveal .7s .08s ease-out both}
   @keyframes archReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 }
-@media(prefers-reduced-motion:reduce){.home-v2 .inquiry{transition:none}}
+
 
 /* Mobile: retain atmosphere without letting decoration compete with reading. */
 @media(max-width:63.99rem){
