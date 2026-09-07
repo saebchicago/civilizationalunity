@@ -46,6 +46,8 @@ Primary source: email from Abdullah al-Ahsan reporting that a former student sen
 
 - The archive is linked from `/writing` as an outward pointer on the strength of that author statement.
 - It is a multi-author forum, not a personal author archive. The link text and surrounding sentence say so; the site must not present the whole archive as his work.
-- No individual post from that archive has been added to the writing list or to `data/core-works.json`. Titles, dates and bylines must be confirmed post by post first. `docs/current-affairs-forum-intake.md` carries the worklist.
+- Professor al-Ahsan confirmed by email (2026-09-07) that three posts are his contributions and supplied their links. Those three are listed on `/writing`; nothing else from the archive is.
+- He also stated he was the forum's main advisor and asked that this not be mentioned. The role must not appear on the site, in the CV page, or in structured data.
+- The printed titles of the Kashmir and Erdogan-Davutoglu pieces are rendered from their post slugs; the pages themselves were not reachable from this environment. Confirm the printed titles when the archive is next accessible.
 - The archive was not reachable from the environment used to make this change (network egress to `wordpress.com` blocked), so the candidate list in the intake note is drawn from search-engine results and is labeled unverified.
 - Do not add this URL to the `sameAs` list in the homepage JSON-LD. `sameAs` asserts identity, and a multi-author forum is not an identity record for one person.
