@@ -36,3 +36,16 @@ These are intentionally preserved rather than silently reconciled:
 - “The Question of Palestine and the Muslim World” — DOI `10.29311/nmes.v8i2.3059` added only after record-level verification.
 
 The public interface should favor concise statements and let readers expand or follow links for depth. Curatorial pathways must remain visibly separable from Professor al-Ahsan’s own wording and published arguments.
+
+## Current Affairs Forum archive — 2026-09-07
+
+Primary source: email from Abdullah al-Ahsan reporting that a former student sent him
+`https://currentaffairsforum.wordpress.com/category/current-affairs-articles/` and stating, "I have articles here."
+
+### Public-use decisions
+
+- The archive is linked from `/writing` as an outward pointer on the strength of that author statement.
+- It is a multi-author forum, not a personal author archive. The link text and surrounding sentence say so; the site must not present the whole archive as his work.
+- No individual post from that archive has been added to the writing list or to `data/core-works.json`. Titles, dates and bylines must be confirmed post by post first. `docs/current-affairs-forum-intake.md` carries the worklist.
+- The archive was not reachable from the environment used to make this change (network egress to `wordpress.com` blocked), so the candidate list in the intake note is drawn from search-engine results and is labeled unverified.
+- Do not add this URL to the `sameAs` list in the homepage JSON-LD. `sameAs` asserts identity, and a multi-author forum is not an identity record for one person.
