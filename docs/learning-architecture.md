@@ -27,3 +27,16 @@ This site serves two goals at once: establish Abdullah al-Ahsan's scholarly reco
 ## The four categories
 
 Professor al-Ahsan asked that the recurring line of argument be categorized as **Governance, Dignity, Cooperation and Flourishing**. That order is used site-wide. They are categories, not a causal sequence: no ordinals, no arrows, no forward/reverse mechanism. Each category on `/framework` and the homepage carries the works in which the argument is actually made.
+
+## Recent writing band
+
+The homepage carries a `Recent writing` band listing the most recently published
+pieces, newest first, with the month where the source establishes one. It is an
+excerpt of the writing archive, never a second record: every piece it links must
+also be listed on `/writing`, and `scripts/site-audit.mjs` fails the build if one
+is not.
+
+Keep it current. When a new piece is published, add it to the writing archive
+first, then to the top of this band, and drop the oldest entry so the band stays
+at roughly six items. A band that has not moved in a year says more about the
+site than about the work.
