@@ -157,6 +157,20 @@ for (const f of html) {
   }
 }
 
+/* The homepage recent band is a served excerpt of the archive, not a second
+   record. Every piece it links must also be listed on the writing page, and
+   the band must ship in the markup. */
+const recentBand = home.match(/<section class="band shell recent-work"[\s\S]*?<\/section>/);
+if (!recentBand) {
+  failures.push("index.html: the recent writing band is missing");
+} else {
+  for (const m of recentBand[0].matchAll(/href="(https?:[^"]+)"/g)) {
+    if (!writing.includes(m[1])) {
+      failures.push(`index.html: recent writing links a piece the archive does not list: ${m[1]}`);
+    }
+  }
+}
+
 /* One search implementation, not three. */
 const core = fs.readFileSync("assets/site-core.js", "utf8");
 if (!core.includes("writingArchive")) failures.push("assets/site-core.js: writing archive behavior missing");
