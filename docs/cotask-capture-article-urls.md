@@ -65,8 +65,11 @@ unverified. Your job is to replace that guesswork with what the archives actuall
   the candidate unverified.
 - Mention that Professor al-Ahsan advised the Current Affairs Forum. He asked in writing that
   the role not appear anywhere on the site.
-- Modify `assets/`, `data/core-works.json`, `_redirects`, `_headers`, `sitemap.xml`, or any
-  page other than `writing-v2.html` and the two files in `docs/`.
+- Modify `assets/`, `data/core-works.json`, `_redirects`, `_headers` or `sitemap.xml`, or any
+  page other than `writing-v2.html`. In `docs/`, four files are yours and no others:
+  `islamicity-informed-comment-intake.md` and `source-notes.md` to edit,
+  `current-affairs-forum-intake.md` to record the snapshots Step 7 asks for, and
+  `cotask-capture-article-urls.md` — this file — to delete once the capture is done.
 - Add either IslamiCity slug or any new URL to the homepage `sameAs` list. Both author pages
   are already there; nothing else belongs.
 
