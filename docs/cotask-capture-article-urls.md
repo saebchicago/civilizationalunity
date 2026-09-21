@@ -7,6 +7,11 @@ needs is below; it does not need to read this repository's history first.
 
 Paste everything between the rules.
 
+This file is a to-do, and retires when the to-do is done. The session or person who lands a
+completed capture deletes it in that same commit and removes the pointer to it in
+`docs/islamicity-informed-comment-intake.md`, so the repository never carries a handoff prompt
+for work already finished.
+
 ---
 
 ## TASK: Capture Abdullah al-Ahsan's IslamiCity and Informed Comment articles and add the confirmed ones to the site

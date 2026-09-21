@@ -4,6 +4,12 @@ Status: **open.** Nothing in the candidate table below is on the site. The three
 archives are linked from `/writing`; the individual pieces are not listed because they could
 not be verified from the environment used to open this record.
 
+This note describes the repository, not the world: it says what has been verified *here*, so
+it stays accurate whether or not a capture is under way elsewhere. Whoever lands a completed
+capture closes it out in the same commit — rewrite the candidate table into confirmed,
+rejected and unresolved, delete `docs/cotask-capture-article-urls.md`, and remove the pointer
+to it below. Until then this note stands on its own and nothing here is waiting on anything.
+
 ## Author statement
 
 Abdullah al-Ahsan supplied three URLs by email (2026-09-21) as "the websites that have
