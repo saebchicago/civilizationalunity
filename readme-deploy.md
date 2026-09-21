@@ -75,6 +75,18 @@ taxonomy rather than his own, so they do not appear in his author archive. One e
 > Civilizations instead of War" and "Can the Davutoglu Middle Powers Plan Reopen Hormuz?"
 > Would you be able to reassign them? Thank you.
 
+**IslamiCity author profile.** IslamiCity files his work under two author pages,
+`islamicity.org/by/abdullah-ahsan/` and `islamicity.org/by/abdullah-al-ahsan/`, so neither one
+shows the full record and neither ranks as well as a single profile would. This is the same
+problem as the Informed Comment attribution above, and one email fixes it:
+
+> Dear IslamiCity editors,
+>
+> Articles by Professor Abdullah al-Ahsan are currently split across two author pages,
+> islamicity.org/by/abdullah-ahsan and islamicity.org/by/abdullah-al-ahsan. Would you be able
+> to merge them into one profile, so that his full archive appears in a single place? Thank
+> you.
+
 **Wikipedia.** His article is stale. It uses the present tense for Istanbul Sehir University,
 which closed in 2020, describes his birthplace as East Pakistan without noting he has been in
 the United States for years, and asserts a Punjab BA the CV does not carry. Do not edit it

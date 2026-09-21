@@ -51,3 +51,26 @@ Primary source: email from Abdullah al-Ahsan reporting that a former student sen
 - The printed titles of the Kashmir and Erdogan-Davutoglu pieces are rendered from their post slugs; the pages themselves were not reachable from this environment. Confirm the printed titles when the archive is next accessible.
 - The archive was not reachable from the environment used to make this change (network egress to `wordpress.com` blocked), so the candidate list in the intake note is drawn from search-engine results and is labeled unverified.
 - Do not add this URL to the `sameAs` list in the homepage JSON-LD. `sameAs` asserts identity, and a multi-author forum is not an identity record for one person.
+
+## IslamiCity and Informed Comment archives — 2026-09-21
+
+Primary source: email from Abdullah al-Ahsan listing three author-archive URLs as "the
+websites that have published my articles in recent years" —
+`islamicity.org/by/abdullah-ahsan/`, `islamicity.org/by/abdullah-al-ahsan/` and
+`juancole.com/author/abdullah-al-ahsan`.
+
+### Public-use decisions
+
+- The second IslamiCity author page (`abdullah-ahsan`) is added to the `/writing` archive
+  links and to the homepage `sameAs` list. Both slugs are author pages for him, supplied by
+  him, so both are identity records; this is not the multi-author case that keeps the Current
+  Affairs Forum out of `sameAs`.
+- `/writing` states that IslamiCity files his work under two author pages, so a reader who
+  finds one does not assume it is the whole record.
+- No individual IslamiCity or Informed Comment article is added. His email confirms the
+  archives, not specific pieces, and the article pages could not be read: `islamicity.org`,
+  `juancole.com` and `archive.org` are all blocked by the egress proxy of the environment used
+  for this change. Search results give titles and URLs but no byline and no date, and both
+  publications are multi-author, so a name-matched search hit is not attribution.
+- Candidates found by search are held in `docs/islamicity-informed-comment-intake.md`, labeled
+  unverified, with a prompt for a session that can reach the archives.
