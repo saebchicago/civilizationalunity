@@ -71,6 +71,8 @@ same piece as the 2023-11 candidate under a different headline before listing bo
 
 ## Prompt for the next session
 
+The full handoff prompt is `docs/cotask-capture-article-urls.md`. The short form:
+
 Run this where `islamicity.org` and `juancole.com` are reachable — a local machine, or a
 session whose egress policy allows those hosts.
 
