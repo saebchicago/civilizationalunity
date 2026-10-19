@@ -169,3 +169,13 @@ pass.
 
 No individual article URL is in the homepage `sameAs` list, and none should be. Both IslamiCity
 author pages and the Informed Comment author page are there; articles are not identity records.
+
+## Pending validation (2026-10-19)
+
+Added on the author's word, before the page was opened. Printed byline and date not yet confirmed
+(islamicity.org was unreachable from the session that added it); the year 2026 is inferred from the
+article ID following 107025 (2026-08-18). Confirm, then add the month to `/writing` and the home page.
+
+| Title | URL |
+| --- | --- |
+| The Ziggurat and the Foundations of Civilization: Religion, Authority, Justice, and Stewardship in Ancient Mesopotamia | https://www.islamicity.org/107200/the-ziggurat-and-the-foundations-of-civilization-religion-authority-justice-and-stewardship-in-ancient-mesopotamia/ |
