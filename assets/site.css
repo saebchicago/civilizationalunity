@@ -423,7 +423,7 @@ a.row:hover{background:var(--lapis-soft);padding-left:.7rem}
 
 
 /* Civilizational Unity source-polish layer */
-.hdr__id{letter-spacing:.02em}
+.hdr__id{letter-spacing:.02em;flex-direction:column;align-items:flex-start;justify-content:center}
 .hdr__id::after{content:"Abdullah al-Ahsan";display:block;font-family:Spectral,Georgia,serif;font-size:.68rem;font-weight:400;letter-spacing:.08em;opacity:.72;margin-top:.08rem}
 .provenance{max-width:72ch;margin:.75rem 0 1.5rem;padding:.9rem 1rem;border-left:2px solid currentColor;opacity:.82;font-size:.95rem}
 .topic__request{margin:.35rem 0 .7rem;font-size:.92rem}
