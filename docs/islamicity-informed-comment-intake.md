@@ -170,11 +170,11 @@ pass.
 No individual article URL is in the homepage `sameAs` list, and none should be. Both IslamiCity
 author pages and the Informed Comment author page are there; articles are not identity records.
 
-## Pending validation (2026-10-19)
+## Ziggurat article (2026-10-22)
 
-Added on the author's word, before the page was opened. Printed byline and date not yet confirmed
-(islamicity.org was unreachable from the session that added it); the year 2026 is inferred from the
-article ID following 107025 (2026-08-18). Confirm, then add the month to `/writing` and the home page.
+Listed on the author's word. IslamiCity republished it, so the author says the date is not
+important. It carries no year on `/writing` or the home page. The printed byline was not opened
+(islamicity.org was unreachable from the session that added it).
 
 | Title | URL |
 | --- | --- |
