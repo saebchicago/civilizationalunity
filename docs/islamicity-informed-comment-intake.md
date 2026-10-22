@@ -172,9 +172,10 @@ author pages and the Informed Comment author page are there; articles are not id
 
 ## Ziggurat article (2026-10-22)
 
-Listed on the author's word. IslamiCity republished it, so the author says the date is not
-important. It carries no year on `/writing` or the home page. The printed byline was not opened
-(islamicity.org was unreachable from the session that added it).
+Listed on the author-side recollection: the person managing the site opened the page and recalls
+the printed date as August 2026 (consistent with article ID 107200 following 107025, 2026-08-18).
+IslamiCity republished the piece. The date is from memory, not a recorded read, and the printed
+byline was not captured. Re-read the page when islamicity.org is reachable.
 
 | Title | URL |
 | --- | --- |
