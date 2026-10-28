@@ -1,0 +1,49 @@
+name: Announce deploy
+
+# After main changes, tell search engines (IndexNow: Bing, Yandex, others)
+# and the Wayback Machine about every page in the sitemap. Google does not
+# accept IndexNow; it reads the sitemap through Search Console.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: announce
+  cancel-in-progress: true
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    env:
+      SITE: https://civilizationalunity.com
+      INDEXNOW_KEY: 6011d9caac73d935f0178488511beb19
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Netlify to serve this commit
+        run: |
+          # The key file ships with the site, so once it is live the deploy is too.
+          for i in $(seq 1 30); do
+            if [ "$(curl -fsS "$SITE/$INDEXNOW_KEY.txt" || true)" = "$INDEXNOW_KEY" ]; then exit 0; fi
+            sleep 20
+          done
+          echo "Site never served the IndexNow key" >&2; exit 1
+      - name: Submit sitemap URLs to IndexNow
+        run: |
+          urls=$(grep -o '<loc>[^<]*</loc>' sitemap.xml | sed 's/<[^>]*>//g' | jq -R . | jq -s .)
+          jq -n --argjson urls "$urls" --arg key "$INDEXNOW_KEY" --arg site "$SITE" \
+            '{host: "civilizationalunity.com", key: $key, keyLocation: ($site + "/" + $key + ".txt"), urlList: $urls}' \
+            | curl -sS -o /dev/null -w "IndexNow HTTP %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+                -H 'Content-Type: application/json; charset=utf-8' --data-binary @-
+      - name: Save pages to the Wayback Machine
+        continue-on-error: true
+        run: |
+          for u in $(grep -o '<loc>[^<]*</loc>' sitemap.xml | sed 's/<[^>]*>//g'); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 90 "https://web.archive.org/save/$u" || true)
+            echo "$code $u"
+            sleep 10
+          done
