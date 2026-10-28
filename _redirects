@@ -1,3 +1,6 @@
+# Old Netlify hostname: send visitors and crawlers to the canonical domain.
+https://civilizationunity.netlify.app/*  https://civilizationalunity.com/:splat  301!
+
 /learn          /explore             301
 /explore        /explore.html        200
 /explore.html   /explore             301

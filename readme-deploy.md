@@ -30,10 +30,9 @@ Free tier. No credit card. It handles HTTPS, the contact form, and the redirects
 no face.
 
 ### B. The domain
-`civilizationunity.netlify.app` appears in the canonical tags, the `og:image` tags, `sitemap.xml`, and the
-one-page PDF. Replace all of them with the real domain once you have one.
-
-Search across the folder for `civilizationunity.netlify.app`. There should be zero matches when you are done.
+Done (Oct 2026). `civilizationalunity.com` is the canonical domain in all pages, `sitemap.xml`,
+`robots.txt` and `llms.txt`. `_redirects` sends the old `civilizationunity.netlify.app` host to it,
+and `scripts/site-audit.mjs` fails if the old host reappears.
 
 ### C. Form notifications
 The contact form works the moment the site is live, but nobody is told when it fires.
