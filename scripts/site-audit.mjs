@@ -172,6 +172,13 @@ for (const band of recentBands) {
   }
 }
 
+/* The custom domain is canonical; the Netlify hostname is only an alias. */
+for (const f of [...html, "robots.txt", "sitemap.xml", "llms.txt"]) {
+  if (fs.readFileSync(f, "utf8").includes("civilizationunity.netlify.app")) {
+    failures.push(`${f}: points at civilizationunity.netlify.app instead of civilizationalunity.com`);
+  }
+}
+
 /* One search implementation, not three. */
 const core = fs.readFileSync("assets/site-core.js", "utf8");
 if (!core.includes("writingArchive")) failures.push("assets/site-core.js: writing archive behavior missing");

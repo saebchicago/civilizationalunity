@@ -14,14 +14,14 @@ Civilizations are born and progress when they recognize and practice human digni
 Professor al-Ahsan groups the recurring line of argument into four categories: Governance, Dignity, Cooperation, Flourishing. They are categories of the published record, not stages of a causal sequence.
 
 ## Core pages
-- Home: https://civilizationunity.netlify.app/
-- Explore the work: https://civilizationunity.netlify.app/explore
-- The four categories and the source trail: https://civilizationunity.netlify.app/framework
-- Selected writing: https://civilizationunity.netlify.app/writing
-- Talks and inquiries: https://civilizationunity.netlify.app/speaking
-- About Abdullah al-Ahsan: https://civilizationunity.netlify.app/about
-- Public CV: https://civilizationunity.netlify.app/cv
-- Press and biographical record: https://civilizationunity.netlify.app/press
+- Home: https://civilizationalunity.com/
+- Explore the work: https://civilizationalunity.com/explore
+- The four categories and the source trail: https://civilizationalunity.com/framework
+- Selected writing: https://civilizationalunity.com/writing
+- Talks and inquiries: https://civilizationalunity.com/speaking
+- About Abdullah al-Ahsan: https://civilizationalunity.com/about
+- Public CV: https://civilizationalunity.com/cv
+- Press and biographical record: https://civilizationalunity.com/press
 
 ## Provenance rule
 Direct quotations and biographical claims should be traced to Professor al-Ahsan’s supplied wording/CV or linked publication, institutional, review, or authority records. Reading routes, thematic groupings, talk summaries, and teaching prompts may be editorial synthesis and are labeled where useful.
