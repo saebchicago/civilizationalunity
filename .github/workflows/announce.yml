@@ -24,21 +24,38 @@ jobs:
       INDEXNOW_KEY: 6011d9caac73d935f0178488511beb19
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Wait for Netlify to serve this commit
+        env:
+          BEFORE: ${{ github.event.before }}
         run: |
-          # The key file ships with the site, so once it is live the deploy is too.
+          # The key file proves the domain; the files this push changed prove the deploy.
+          # Netlify rewrites pages that hold a form, so those cannot be compared byte for byte.
+          base="$BEFORE"
+          if [ -z "$base" ] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then base=HEAD~1; fi
+          changed=$(git diff --name-only --diff-filter=AM "$base" HEAD -- . ':(exclude).*' ':(exclude)_*' ':(exclude)docs' ':(exclude)scripts' ':(exclude)*.md' \
+            | while read -r f; do grep -q 'netlify-honeypot' "$f" || echo "$f"; done)
+          echo "Files to confirm live:"; echo "${changed:-(none)}"
           for i in $(seq 1 30); do
-            if [ "$(curl -fsS "$SITE/$INDEXNOW_KEY.txt" || true)" = "$INDEXNOW_KEY" ]; then exit 0; fi
+            ok=1
+            [ "$(curl -fsS "$SITE/$INDEXNOW_KEY.txt" || true)" = "$INDEXNOW_KEY" ] || ok=0
+            for f in $changed; do
+              [ "$(curl -fsS "$SITE/$f" | sha256sum)" = "$(sha256sum < "$f")" ] || { ok=0; break; }
+            done
+            [ "$ok" = 1 ] && exit 0
             sleep 20
           done
-          echo "Site never served the IndexNow key" >&2; exit 1
+          echo "Netlify did not serve this commit within 10 minutes" >&2; exit 1
       - name: Submit sitemap URLs to IndexNow
         run: |
           urls=$(grep -o '<loc>[^<]*</loc>' sitemap.xml | sed 's/<[^>]*>//g' | jq -R . | jq -s .)
-          jq -n --argjson urls "$urls" --arg key "$INDEXNOW_KEY" --arg site "$SITE" \
+          code=$(jq -n --argjson urls "$urls" --arg key "$INDEXNOW_KEY" --arg site "$SITE" \
             '{host: "civilizationalunity.com", key: $key, keyLocation: ($site + "/" + $key + ".txt"), urlList: $urls}' \
-            | curl -sS -o /dev/null -w "IndexNow HTTP %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
-                -H 'Content-Type: application/json; charset=utf-8' --data-binary @-
+            | curl -sS -o /tmp/indexnow.txt -w '%{http_code}' -X POST https://api.indexnow.org/indexnow \
+                -H 'Content-Type: application/json; charset=utf-8' --data-binary @-)
+          echo "IndexNow HTTP $code"; cat /tmp/indexnow.txt
+          case "$code" in 200|202) ;; *) exit 1 ;; esac
       - name: Save pages to the Wayback Machine
         continue-on-error: true
         run: |
