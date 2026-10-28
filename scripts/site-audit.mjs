@@ -157,16 +157,17 @@ for (const f of html) {
   }
 }
 
-/* The homepage recent band is a served excerpt of the archive, not a second
-   record. Every piece it links must also be listed on the writing page, and
-   the band must ship in the markup. */
-const recentBand = home.match(/<section class="band shell recent-work"[\s\S]*?<\/section>/);
-if (!recentBand) {
-  failures.push("index.html: the recent writing band is missing");
-} else {
-  for (const m of recentBand[0].matchAll(/href="(https?:[^"]+)"/g)) {
+/* The homepage Start here and More articles bands are served excerpts of the
+   archive, not a second record. Every piece they link must also be listed on
+   the writing page, and the bands must ship in the markup. */
+const recentBands = home.match(/<section class="band shell recent-work"[\s\S]*?<\/section>/g) || [];
+if (recentBands.length < 2) {
+  failures.push("index.html: the Start here and More articles bands are missing");
+}
+for (const band of recentBands) {
+  for (const m of band.matchAll(/href="(https?:[^"]+)"/g)) {
     if (!writing.includes(m[1])) {
-      failures.push(`index.html: recent writing links a piece the archive does not list: ${m[1]}`);
+      failures.push(`index.html: homepage links a piece the archive does not list: ${m[1]}`);
     }
   }
 }
