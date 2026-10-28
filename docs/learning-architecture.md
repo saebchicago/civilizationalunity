@@ -28,15 +28,18 @@ This site serves two goals at once: establish Abdullah al-Ahsan's scholarly reco
 
 Professor al-Ahsan asked that the recurring line of argument be categorized as **Governance, Dignity, Cooperation and Flourishing**. That order is used site-wide. They are categories, not a causal sequence: no ordinals, no arrows, no forward/reverse mechanism. Each category on `/framework` and the homepage carries the works in which the argument is actually made.
 
-## Recent writing band
+## Start here and More articles bands
 
-The homepage carries a `Recent writing` band listing the most recently published
-pieces, newest first, with the month where the source establishes one. It is an
-excerpt of the writing archive, never a second record: every piece it links must
-also be listed on `/writing`, and `scripts/site-audit.mjs` fails the build if one
-is not.
+The homepage opens with a `Start here` band: seven pieces Professor al-Ahsan chose,
+in the order he set (Pegasus June 2026 first). Do not reorder or swap them without
+his sign-off.
 
-Keep it current. When a new piece is published, add it to the writing archive
-first, then to the top of this band, and drop the oldest entry so the band stays
-at roughly six items. A band that has not moved in a year says more about the
+Below it, a `More articles` band lists about ten or eleven further pieces, newest
+first, never repeating a `Start here` piece. Both bands are excerpts of the writing
+archive, never a second record: every piece they link must also be listed on
+`/writing`, and `scripts/site-audit.mjs` checks this.
+
+Keep `More articles` current. When a new piece is published, add it to the writing
+archive first, then to the top of that band, and drop the oldest entry.
+A band that has not moved in a year says more about the
 site than about the work.
