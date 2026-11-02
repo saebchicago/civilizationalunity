@@ -30,7 +30,7 @@ Professor al-Ahsan asked that the recurring line of argument be categorized as *
 
 ## Start here and More articles bands
 
-The homepage opens with a `Start here` band: seven pieces Professor al-Ahsan chose,
+The homepage opens with a `Start here` band: eight pieces Professor al-Ahsan chose,
 in the order he set (Pegasus June 2026 first). Do not reorder or swap them without
 his sign-off.
 
