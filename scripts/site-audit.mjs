@@ -13,7 +13,13 @@ const banned = [
   "Societies hold together when they recognize the dignity",
   "Browse all 50+ publications",
   "verified bibliographic records",
-  "Fifty-plus publications"
+  "Fifty-plus publications",
+  "Approved portrait to be added",
+  "supplied for this",
+  "Editorial standard",
+  "What the Record Actually Shows",
+  "Verified biographical notes",
+  "Professor al-Ahsan"
 ];
 
 function count(s, needle) {
@@ -87,7 +93,7 @@ const sitemap = fs.readFileSync("sitemap.xml", "utf8");
 if (!sitemap.includes("/explore</loc>")) failures.push("sitemap.xml: missing /explore");
 
 const explore = fs.readFileSync("explore.html", "utf8");
-for (const marker of ["LearningResource", "Guided paths", "For seminars &amp; reading groups", "Carry the record forward"]) {
+for (const marker of ["LearningResource", "Guided paths", "For seminars &amp; reading groups", "Reading group guide"]) {
   if (!explore.includes(marker)) failures.push(`explore.html: missing learning marker ${marker}`);
 }
 /* The four categories are Professor al-Ahsan's requested grouping: governance,
@@ -110,9 +116,9 @@ for (const f of ["index.html", "framework.html"]) {
 
 /* Content must ship in the markup, not be injected after load. */
 for (const [f, markers] of [
-  ["index.html", ["A recurring line of argument", "Qur\u2019anic Guidance for Good Governance", "Journal of Law and Religion"]],
-  ["framework.html", ["Four categories, and where each one is argued", "Intellectual Discourse", "Al-Shajarah"]],
-  ["explore.html", ["Orientation \u00b7 about 10\u201315 min", 'id="path-dignity"']],
+  ["index.html", ["One work for each", "Qur\u2019anic Guidance for Good Governance", "Journal of Law and Religion"]],
+  ["framework.html", ["Where each is argued", "Intellectual Discourse", "Al-Shajarah"]],
+  ["explore.html", ["Understand the central questions", 'id="path-dignity"']],
   ["writing-v2.html", ['id="archiveSearch"', 'id="archiveClear"']]
 ]) {
   const s = fs.readFileSync(f, "utf8");
