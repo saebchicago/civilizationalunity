@@ -109,6 +109,9 @@
 .seminar__copy h2{font-size:clamp(2.35rem,5.5vw,4.6rem);font-weight:400;line-height:.98;margin-bottom:1.3rem;max-width:13ch}
 .seminar__meta{font-family:var(--mono);font-size:.7rem;color:var(--slate);letter-spacing:.04em}
 .seminar__video{box-shadow:0 24px 70px rgba(11,20,32,.18)}
+.seminar__series{margin-top:4rem}
+.seminar__series h2{font-size:clamp(1.9rem,3.8vw,3.1rem);line-height:1.04;font-weight:400;max-width:24ch;margin-bottom:1rem}
+.seminar__series .lede{max-width:46rem}
 @media(min-width:64rem){.seminar__grid{grid-template-columns:.78fr 1.22fr}}
 
 /* Public work */
