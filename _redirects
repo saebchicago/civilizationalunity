@@ -6,6 +6,8 @@ https://civilizationunity.netlify.app/*  https://civilizationalunity.com/:splat 
 /explore.html   /explore             301
 /framework      /framework.html      200
 /writing        /writing-v2.html     200
+/educational-philosophy  /educational-philosophy.html  200
+/educational-philosophy.html  /educational-philosophy  301
 /writing.html   /writing             301
 /speaking       /speaking-v2.html    200
 /speaking.html  /speaking            301
