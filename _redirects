@@ -1,6 +1,10 @@
 # Old Netlify hostname: send visitors and crawlers to the canonical domain.
 https://civilizationunity.netlify.app/*  https://civilizationalunity.com/:splat  301!
 
+# Analytics Hub same-origin proxy (first-party, cookieless)
+/_ah/t.js       https://saeb-analytics-hub.lovable.app/tracker.js          200!
+/_ah/c          https://saeb-analytics-hub.lovable.app/api/public/collect  200!
+
 /learn          /explore             301
 /explore        /explore.html        200
 /explore.html   /explore             301
