@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://civilizationalunity.com/</loc><priority>1.0</priority></url>
-  <url><loc>https://civilizationalunity.com/explore</loc><priority>0.95</priority></url>
-  <url><loc>https://civilizationalunity.com/framework</loc><priority>0.9</priority></url>
-  <url><loc>https://civilizationalunity.com/writing</loc><priority>0.9</priority></url>
-  <url><loc>https://civilizationalunity.com/educational-philosophy</loc><priority>0.8</priority></url>
-  <url><loc>https://civilizationalunity.com/speaking</loc><priority>0.9</priority></url>
-  <url><loc>https://civilizationalunity.com/press</loc><priority>0.8</priority></url>
-  <url><loc>https://civilizationalunity.com/press-sheet</loc><priority>0.7</priority></url>
-  <url><loc>https://civilizationalunity.com/about</loc><priority>0.8</priority></url>
-  <url><loc>https://civilizationalunity.com/cv</loc><priority>0.8</priority></url>
+  <url><loc>https://civilizationalunity.com/</loc><lastmod>2026-11-22</lastmod><priority>1.0</priority></url>
+  <url><loc>https://civilizationalunity.com/explore</loc><lastmod>2026-11-22</lastmod><priority>0.95</priority></url>
+  <url><loc>https://civilizationalunity.com/framework</loc><lastmod>2026-11-22</lastmod><priority>0.9</priority></url>
+  <url><loc>https://civilizationalunity.com/writing</loc><lastmod>2026-11-27</lastmod><priority>0.9</priority></url>
+  <url><loc>https://civilizationalunity.com/educational-philosophy</loc><lastmod>2026-11-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://civilizationalunity.com/speaking</loc><lastmod>2026-11-27</lastmod><priority>0.9</priority></url>
+  <url><loc>https://civilizationalunity.com/press</loc><lastmod>2026-11-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://civilizationalunity.com/press-sheet</loc><lastmod>2026-11-27</lastmod><priority>0.7</priority></url>
+  <url><loc>https://civilizationalunity.com/about</loc><lastmod>2026-11-27</lastmod><priority>0.8</priority></url>
+  <url><loc>https://civilizationalunity.com/cv</loc><lastmod>2026-11-22</lastmod><priority>0.8</priority></url>
 </urlset>

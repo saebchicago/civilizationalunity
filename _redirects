@@ -13,10 +13,13 @@ https://civilizationunity.netlify.app/*  https://civilizationalunity.com/:splat 
 /educational-philosophy  /educational-philosophy.html  200
 /educational-philosophy.html  /educational-philosophy  301
 /writing.html   /writing             301
+/writing-v2.html  /writing           301
 /speaking       /speaking-v2.html    200
 /speaking.html  /speaking            301
+/speaking-v2.html  /speaking        301
 /press          /press-v2.html       200
 /press.html     /press               301
+/press-v2.html  /press              301
 /press-sheet    /press-sheet.html    200
 /about          /about.html          200
 /cv             /cv.html             200

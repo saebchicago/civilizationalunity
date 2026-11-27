@@ -1,5 +1,7 @@
 # Canonical domain migration
 
+> **Status (2026-11-27): cutover complete in the code.** The site is now served from `https://civilizationalunity.com`. Evidence in this repository: line 2 of `_redirects` is a permanent `301!` from `https://civilizationunity.netlify.app/*` to `https://civilizationalunity.com/:splat`, and the pages' `<link rel="canonical">` tags and `sitemap.xml` all use `https://civilizationalunity.com`. The sections below are kept as the original plan and are no longer current: in particular, the statement that the netlify.app URLs "remain canonical" is superseded by this note. DNS, HTTPS and Netlify domain settings are not visible from this repository and were not re-verified here.
+
 ## Recommended public identity
 
 Primary brand and canonical domain: **Civilizational Unity** / `civilizationalunity.com`.
@@ -10,7 +12,7 @@ If available and reasonably priced, also acquire `civilizationunity.com` and red
 
 - **Civilizational** describes the level of analysis in Professor al-Ahsan's scholarship: civilizations, institutions, encounter, dialogue, decline and renewal.
 - **Civilization Unity** can read as an advocacy organization or a general social-cohesion initiative rather than a scholarly thesis or intellectual program.
-- The homepage should resolve any abstraction by immediately pairing the brand with **Abdullah al-Ahsan — Historian of Civilizations**.
+- The homepage should resolve any abstraction by immediately pairing the brand with **Abdullah al-Ahsan - Historian of Civilizations**.
 - Consistency between brand, domain, page titles and structured data is more valuable than saving four characters.
 
 ## Do not cut over before ownership and Netlify attachment
@@ -42,4 +44,4 @@ Once `civilizationalunity.com` is owned and attached:
 The site should read as **a scholar's intellectual home**, not as an anonymous institution. The public pairing should remain:
 
 > Civilizational Unity  
-> Abdullah al-Ahsan — Historian of Civilizations
+> Abdullah al-Ahsan - Historian of Civilizations
