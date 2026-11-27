@@ -50,13 +50,13 @@
   content:"“";
   position:absolute;
   left:-.1rem;
-  top:.25rem;
+  top:1.05rem;
   font-family:var(--display);
   font-size:2.6rem;
   line-height:1;
   color:#b58a3a;
 }
-.home-v2 .thesis-quote p{padding-left:2.15rem}
+.home-v2 .thesis-quote p{padding-left:1.4rem}
 .home-v2 .thesis-quote strong{box-shadow:none;color:var(--lapis)}
 [data-theme="dark"] .home-v2 .thesis-quote strong{color:#b8d3f6}
 
